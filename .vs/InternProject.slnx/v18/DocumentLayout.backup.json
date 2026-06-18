@@ -1,0 +1,147 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\huseyin.sumer\\source\\repos\\InternProject\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{030176C4-2854-490E-B689-1FD14E2ABA3A}|ClientConsole\\ClientConsole.csproj|c:\\users\\huseyin.sumer\\source\\repos\\internproject\\clientconsole\\columndescriptor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{030176C4-2854-490E-B689-1FD14E2ABA3A}|ClientConsole\\ClientConsole.csproj|solutionrelative:clientconsole\\columndescriptor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A23D2495-6182-4A24-9D2F-8D1D9820B2B3}|BackendAPI\\BackendAPI.csproj|c:\\users\\huseyin.sumer\\source\\repos\\internproject\\backendapi\\task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A23D2495-6182-4A24-9D2F-8D1D9820B2B3}|BackendAPI\\BackendAPI.csproj|solutionrelative:backendapi\\task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{030176C4-2854-490E-B689-1FD14E2ABA3A}|ClientConsole\\ClientConsole.csproj|c:\\users\\huseyin.sumer\\source\\repos\\internproject\\clientconsole\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{030176C4-2854-490E-B689-1FD14E2ABA3A}|ClientConsole\\ClientConsole.csproj|solutionrelative:clientconsole\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A23D2495-6182-4A24-9D2F-8D1D9820B2B3}|BackendAPI\\BackendAPI.csproj|c:\\users\\huseyin.sumer\\source\\repos\\internproject\\backendapi\\priorty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A23D2495-6182-4A24-9D2F-8D1D9820B2B3}|BackendAPI\\BackendAPI.csproj|solutionrelative:backendapi\\priorty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A23D2495-6182-4A24-9D2F-8D1D9820B2B3}|BackendAPI\\BackendAPI.csproj|c:\\users\\huseyin.sumer\\source\\repos\\internproject\\backendapi\\filterdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A23D2495-6182-4A24-9D2F-8D1D9820B2B3}|BackendAPI\\BackendAPI.csproj|solutionrelative:backendapi\\filterdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A23D2495-6182-4A24-9D2F-8D1D9820B2B3}|BackendAPI\\BackendAPI.csproj|c:\\users\\huseyin.sumer\\source\\repos\\internproject\\backendapi\\controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A23D2495-6182-4A24-9D2F-8D1D9820B2B3}|BackendAPI\\BackendAPI.csproj|solutionrelative:backendapi\\controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A23D2495-6182-4A24-9D2F-8D1D9820B2B3}|BackendAPI\\BackendAPI.csproj|c:\\users\\huseyin.sumer\\source\\repos\\internproject\\backendapi\\backendapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A23D2495-6182-4A24-9D2F-8D1D9820B2B3}|BackendAPI\\BackendAPI.csproj|solutionrelative:backendapi\\backendapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ColumnDescriptor.cs",
+              "DocumentMoniker": "C:\\Users\\huseyin.sumer\\source\\repos\\InternProject\\ClientConsole\\ColumnDescriptor.cs",
+              "RelativeDocumentMoniker": "ClientConsole\\ColumnDescriptor.cs",
+              "ToolTip": "C:\\Users\\huseyin.sumer\\source\\repos\\InternProject\\ClientConsole\\ColumnDescriptor.cs",
+              "RelativeToolTip": "ClientConsole\\ColumnDescriptor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-18T08:22:09.869Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "BackendAPI",
+              "DocumentMoniker": "C:\\Users\\huseyin.sumer\\source\\repos\\InternProject\\BackendAPI\\BackendAPI.csproj",
+              "RelativeDocumentMoniker": "BackendAPI\\BackendAPI.csproj",
+              "ToolTip": "C:\\Users\\huseyin.sumer\\source\\repos\\InternProject\\BackendAPI\\BackendAPI.csproj",
+              "RelativeToolTip": "BackendAPI\\BackendAPI.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-06-18T08:17:52.677Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TaskController.cs",
+              "DocumentMoniker": "C:\\Users\\huseyin.sumer\\source\\repos\\InternProject\\BackendAPI\\Controllers\\TaskController.cs",
+              "RelativeDocumentMoniker": "BackendAPI\\Controllers\\TaskController.cs",
+              "ToolTip": "C:\\Users\\huseyin.sumer\\source\\repos\\InternProject\\BackendAPI\\Controllers\\TaskController.cs",
+              "RelativeToolTip": "BackendAPI\\Controllers\\TaskController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-18T08:20:04.762Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FilterDto.cs",
+              "DocumentMoniker": "C:\\Users\\huseyin.sumer\\source\\repos\\InternProject\\BackendAPI\\FilterDto.cs",
+              "RelativeDocumentMoniker": "BackendAPI\\FilterDto.cs",
+              "ToolTip": "C:\\Users\\huseyin.sumer\\source\\repos\\InternProject\\BackendAPI\\FilterDto.cs",
+              "RelativeToolTip": "BackendAPI\\FilterDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-18T08:19:23.886Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "task.cs",
+              "DocumentMoniker": "C:\\Users\\huseyin.sumer\\source\\repos\\InternProject\\BackendAPI\\task.cs",
+              "RelativeDocumentMoniker": "BackendAPI\\task.cs",
+              "ToolTip": "C:\\Users\\huseyin.sumer\\source\\repos\\InternProject\\BackendAPI\\task.cs",
+              "RelativeToolTip": "BackendAPI\\task.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-18T08:18:53.478Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Priorty.cs",
+              "DocumentMoniker": "C:\\Users\\huseyin.sumer\\source\\repos\\InternProject\\BackendAPI\\Priorty.cs",
+              "RelativeDocumentMoniker": "BackendAPI\\Priorty.cs",
+              "ToolTip": "C:\\Users\\huseyin.sumer\\source\\repos\\InternProject\\BackendAPI\\Priorty.cs",
+              "RelativeToolTip": "BackendAPI\\Priorty.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-18T08:18:05.51Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\huseyin.sumer\\source\\repos\\InternProject\\ClientConsole\\Program.cs",
+              "RelativeDocumentMoniker": "ClientConsole\\Program.cs",
+              "ToolTip": "C:\\Users\\huseyin.sumer\\source\\repos\\InternProject\\ClientConsole\\Program.cs",
+              "RelativeToolTip": "ClientConsole\\Program.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAA4wCcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-18T08:16:54.078Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
