@@ -40,7 +40,7 @@ namespace ClientConsole
 
         public static async Task Main(string[] args)
         {
-            string baseUrl = "https://localhost:7271/api/Tasks";
+            string baseUrl = "https://localhost:7271/api/tasks";
 
             try
             {

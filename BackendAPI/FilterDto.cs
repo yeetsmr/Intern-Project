@@ -5,9 +5,8 @@ namespace InternProject.Models
     public class FilterDto
     {
         public string? TaskNameContains { get; set; }
-        public double? MaxEstimatedTime { get; set; }
+        public double? MaxTime { get; set; } 
+        public int? pri { get; set; }        
         public bool? IsCompleted { get; set; }
-        public Priorty? SelectedPriority { get; set; }
-        public DateTime? CreatedAfter { get; set; }
     }
 }

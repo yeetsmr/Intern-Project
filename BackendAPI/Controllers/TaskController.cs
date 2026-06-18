@@ -20,7 +20,7 @@ namespace BackendAPI.Controllers
             var database = client.GetDatabase("secondweek");
             _taskCollection = database.GetCollection<task>("dto");
         }
-        [HttpPost("search")]
+        [HttpPost("filter")]
         public async Task<ActionResult<List<task>>> GetFilteredTasks([FromBody] FilterDto filterDto)
         {
             var filterMaker = Builders<task>.Filter;

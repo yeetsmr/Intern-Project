@@ -17,3 +17,4 @@ C:\Users\huseyin.sumer\source\repos\Intern-Project\ClientWPF\obj\Debug\net10.0-w
 C:\Users\huseyin.sumer\source\repos\Intern-Project\ClientWPF\obj\Debug\net10.0-windows\ClientWPF.pdb
 C:\Users\huseyin.sumer\source\repos\Intern-Project\ClientWPF\obj\Debug\net10.0-windows\ClientWPF.genruntimeconfig.cache
 C:\Users\huseyin.sumer\source\repos\Intern-Project\ClientWPF\obj\Debug\net10.0-windows\ref\ClientWPF.dll
+C:\Users\huseyin.sumer\source\repos\Intern-Project\ClientWPF\obj\Debug\net10.0-windows\ClientWPF.sourcelink.json

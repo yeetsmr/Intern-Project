@@ -13,7 +13,7 @@
     }
   ],
   "paths": {
-    "/api/Tasks/search": {
+    "/api/Tasks/filter": {
       "post": {
         "tags": [
           "Tasks"
@@ -216,7 +216,7 @@
               "string"
             ]
           },
-          "maxEstimatedTime": {
+          "maxTime": {
             "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?$",
             "type": [
               "null",
@@ -225,28 +225,20 @@
             ],
             "format": "double"
           },
+          "pri": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "null",
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
           "isCompleted": {
             "type": [
               "null",
               "boolean"
             ]
-          },
-          "selectedPriority": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/Priorty"
-              }
-            ]
-          },
-          "createdAfter": {
-            "type": [
-              "null",
-              "string"
-            ],
-            "format": "date-time"
           }
         }
       },

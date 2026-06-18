@@ -64,3 +64,4 @@ C:\Users\huseyin.sumer\source\repos\Intern-Project\ClientConsole\obj\Debug\net10
 C:\Users\huseyin.sumer\source\repos\Intern-Project\ClientConsole\obj\Debug\net10.0\ClientConsole.pdb
 C:\Users\huseyin.sumer\source\repos\Intern-Project\ClientConsole\obj\Debug\net10.0\ClientConsole.genruntimeconfig.cache
 C:\Users\huseyin.sumer\source\repos\Intern-Project\ClientConsole\obj\Debug\net10.0\ref\ClientConsole.dll
+C:\Users\huseyin.sumer\source\repos\Intern-Project\ClientConsole\obj\Debug\net10.0\ClientConsole.sourcelink.json

@@ -55,7 +55,7 @@
   {
     "ContainingType": "BackendAPI.Controllers.TasksController",
     "Method": "GetFilteredTasks",
-    "RelativePath": "api/Tasks/search",
+    "RelativePath": "api/Tasks/filter",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

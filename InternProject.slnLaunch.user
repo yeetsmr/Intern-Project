@@ -7,7 +7,7 @@
         "Action": "Start"
       },
       {
-        "Path": "ClientConsole\\ClientConsole.csproj",
+        "Path": "ClientWPF\\ClientWPF.csproj",
         "Action": "Start"
       }
     ]
