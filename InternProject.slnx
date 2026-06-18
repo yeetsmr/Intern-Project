@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="BackendAPI/BackendAPI.csproj" />
+  <Project Path="ClientConsole/ClientConsole.csproj" />
+  <Project Path="ClientWPF/ClientWPF.csproj" Id="56638ffa-9a30-4a61-9c4e-c1d4cc8efe96" />
+</Solution>
