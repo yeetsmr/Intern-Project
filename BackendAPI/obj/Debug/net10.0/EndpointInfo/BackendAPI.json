@@ -40,33 +40,7 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/task"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/task"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/task"
-                  }
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
@@ -238,6 +212,24 @@
             "type": [
               "null",
               "boolean"
+            ]
+          },
+          "departmentStartsWith": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "usernameEndsWith": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "status": {
+            "type": [
+              "null",
+              "string"
             ]
           }
         }

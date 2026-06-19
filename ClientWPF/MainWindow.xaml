@@ -16,16 +16,17 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,15">
-            <TextBlock Text="Task Name:" VerticalAlignment="Center" Margin="0,0,5,0" />
-            <TextBox x:Name="txtTaskName" Width="150" Margin="0,0,15,0" Padding="2" />
+            <TextBlock Text="Task Name:" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,5,0" />
+            <TextBox x:Name="txtTaskName" Width="80" Margin="0,0,15,0" Padding="2" />
 
-            <TextBlock Text="Max Time:" VerticalAlignment="Center" Margin="0,0,5,0" />
+            <TextBlock Text="Max Time:" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,5,0" />
             <TextBox x:Name="txtMaxTime" Width="80" Margin="0,0,15,0" Padding="2" />
 
-            <TextBlock Text="Priorty" VerticalAlignment="Center" Margin="0,0,5,0" />    
+            <TextBlock Text="Priorty" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,5,0" />    
             <TextBox x:Name="txtPriority" Width="80" Margin="0,0,15,0" Padding="2" />
 
-            <Button x:Name="btnFilter" Content="API'de Filtrele" Width="100" Padding="5" Background="#2980B9" Foreground="White" FontWeight="Bold" Click="btnFilter_Click"/>
+            
+            <Button x:Name="btnFilter" Content="Filter" Width="100" Padding="5" Background="#111111" Foreground="GhostWhite" FontWeight="Bold" Click="btnFilter_Click"/>
         </StackPanel>
 
         <ListView Grid.Row="2" Name="TaskListView" Background="#FAFAFA" BorderBrush="#BDC3C7" BorderThickness="1">

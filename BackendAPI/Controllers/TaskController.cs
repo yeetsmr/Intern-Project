@@ -1,4 +1,5 @@
-﻿using InternProject.Models;
+﻿using BackendAPI.Helpers;
+using InternProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using System.Collections.Generic;
@@ -21,59 +22,14 @@ namespace BackendAPI.Controllers
             _taskCollection = database.GetCollection<task>("dto");
         }
         [HttpPost("filter")]
-        public async Task<ActionResult<List<task>>> GetFilteredTasks([FromBody] FilterDto filterDto)
+        public async Task<IActionResult> GetFilteredTasks([FromBody] FilterDto filterDto)
         {
-            var filterMaker = Builders<task>.Filter;
-            var combinedFilter = filterMaker.Empty;
 
-            if (filterDto != null)
-            {
+            var combinedFilter = FilterBuilder<task>.Build(filterDto);
 
-                var properties = filterDto.GetType().GetProperties();
-
-                foreach (var prop in properties)
-                {
-
-                    var value = prop.GetValue(filterDto);
-
-
-                    if (value == null) continue;
-
-
-                    string dbFieldName = prop.Name;
-                    if (dbFieldName.EndsWith("Contains")) dbFieldName = dbFieldName.Replace("Contains", "");
-
-                    if (prop.PropertyType == typeof(string))
-                    {
-
-                        var regexFilter = filterMaker.Regex(dbFieldName, new MongoDB.Bson.BsonRegularExpression(value.ToString(), "i"));
-                        combinedFilter = filterMaker.And(combinedFilter, regexFilter);
-                    }
-                    else if (prop.PropertyType == typeof(double?) || prop.PropertyType == typeof(double))
-                    {
-
-                        var timeFilter = filterMaker.Lte(dbFieldName, Convert.ToDouble(value));
-                        combinedFilter = filterMaker.And(combinedFilter, timeFilter);
-                    }
-                    else if (prop.PropertyType == typeof(DateTime?) || prop.PropertyType == typeof(DateTime))
-                    {
-
-                        var dateFilter = filterMaker.Gt(dbFieldName, (DateTime)value);
-                        combinedFilter = filterMaker.And(combinedFilter, dateFilter);
-                    }
-                    else
-                    {
-
-                        var eqFilter = filterMaker.Eq(dbFieldName, value);
-                        combinedFilter = filterMaker.And(combinedFilter, eqFilter);
-
-
-                    }
-                }
-            }
             var tasks = await _taskCollection.Find(combinedFilter).ToListAsync();
-            return Ok(tasks);
 
+            return Ok(tasks);
         }
         [HttpPost]
         public async Task<ActionResult> CreateTask([FromBody] task newTask)

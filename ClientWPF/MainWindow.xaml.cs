@@ -16,6 +16,32 @@ namespace ClientWPF
 
             LoadDataFromApi(new FilterDto());
         }
+        public class FilterDto
+        {
+            public string? TaskNameContains { get; set; }
+            public double? MaxTime { get; set; }
+            public int? pri { get; set; }
+            public bool? IsCompleted { get; set; }
+        }
+
+        public class TaskViewModel
+        {
+            public string Id { get; set; }
+            public string TaskName { get; set; }
+            public double MaxTime { get; set; }
+            public int pri { get; set; }
+            public bool IsCompleted { get; set; }
+            public string PriorityText
+            {
+                get
+                {
+                    if (pri == 0) return "low";
+                    if (pri == 1) return "mid";
+                    if (pri == 2) return "high";
+                    return "Unknown";
+                }
+            }
+        }
 
         private void btnFilter_Click(object sender, RoutedEventArgs e)
         {
@@ -79,34 +105,5 @@ namespace ClientWPF
         }
     }
 
-    public class FilterDto
-    {
-        public string? TaskNameContains { get; set; } 
-        public double? MaxTime { get; set; }
-        public int? pri { get; set; }
-        public bool? IsCompleted { get; set; }
-    }
-
-    public class TaskViewModel
-    {
-        public string Id { get; set; }
-        public string TaskName { get; set; }
-        public double MaxTime { get; set; }
-
-
-        public int pri { get; set; }
-
-        public bool IsCompleted { get; set; }
-
-        public string PriorityText
-        {
-            get
-            {
-                if (pri == 0) return "low";
-                if (pri == 1) return "mid";
-                if (pri == 2) return "high";
-                return "Unknown";
-            }
-        }
-    }
+   
 }

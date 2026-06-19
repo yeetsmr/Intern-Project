@@ -8,5 +8,8 @@ namespace InternProject.Models
         public double? MaxTime { get; set; } 
         public int? pri { get; set; }        
         public bool? IsCompleted { get; set; }
+        public string? DepartmentStartsWith { get; set; }
+        public string? UsernameEndsWith { get; set; }
+        public string? Status { get; set; }
     }
 }
