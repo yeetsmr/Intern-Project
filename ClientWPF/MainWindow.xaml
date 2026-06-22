@@ -8,6 +8,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Margin="0,0,0,15">
@@ -22,11 +23,11 @@
             <TextBlock Text="Max Time:" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,5,0" />
             <TextBox x:Name="txtMaxTime" Width="80" Margin="0,0,15,0" Padding="2" />
 
-            <TextBlock Text="Priorty" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,5,0" />    
+            <TextBlock Text="Priority:" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,5,0" />
             <TextBox x:Name="txtPriority" Width="80" Margin="0,0,15,0" Padding="2" />
 
-            
             <Button x:Name="btnFilter" Content="Filter" Width="100" Padding="5" Background="#111111" Foreground="GhostWhite" FontWeight="Bold" Click="btnFilter_Click"/>
+            <Button x:Name="BtnLogin" Content="Login" Click="BtnLogin_Click" Foreground="Yellow" Background="Black" Width="100" Padding="5" Margin="5,0,0,0"/>
         </StackPanel>
 
         <ListView Grid.Row="2" Name="TaskListView" Background="#FAFAFA" BorderBrush="#BDC3C7" BorderThickness="1">
@@ -40,5 +41,11 @@
                 </GridView>
             </ListView.View>
         </ListView>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
+            <Button x:Name="btnPrevPage" Content="&lt; Previous Page" Width="100" Padding="5" Margin="0,0,15,0" Click="btnPrevPage_Click" Background="#BDC3C7" IsEnabled="False"/>
+            <TextBlock x:Name="txtPageInfo" Text="Page: 1" VerticalAlignment="Center" FontWeight="Bold" FontSize="14"/>
+            <Button x:Name="btnNextPage" Content="Next Page &gt;" Width="100" Padding="5" Margin="15,0,0,0" Click="btnNextPage_Click" Background="#2980B9" Foreground="White" FontWeight="Bold"/>
+        </StackPanel>
     </Grid>
 </Window>

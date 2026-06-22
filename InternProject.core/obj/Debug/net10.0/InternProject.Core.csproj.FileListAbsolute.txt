@@ -1,0 +1,14 @@
+C:\Users\huseyin.sumer\source\repos\Intern-Project\InternProject.core\bin\Debug\net10.0\InternProject.core.deps.json
+C:\Users\huseyin.sumer\source\repos\Intern-Project\InternProject.core\bin\Debug\net10.0\InternProject.core.dll
+C:\Users\huseyin.sumer\source\repos\Intern-Project\InternProject.core\bin\Debug\net10.0\InternProject.core.pdb
+C:\Users\huseyin.sumer\source\repos\Intern-Project\InternProject.core\obj\Debug\net10.0\InternProject.core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\huseyin.sumer\source\repos\Intern-Project\InternProject.core\obj\Debug\net10.0\InternProject.core.AssemblyInfoInputs.cache
+C:\Users\huseyin.sumer\source\repos\Intern-Project\InternProject.core\obj\Debug\net10.0\InternProject.core.AssemblyInfo.cs
+C:\Users\huseyin.sumer\source\repos\Intern-Project\InternProject.core\obj\Debug\net10.0\InternProject.core.csproj.CoreCompileInputs.cache
+C:\Users\huseyin.sumer\source\repos\Intern-Project\InternProject.core\obj\Debug\net10.0\InternProject.core.sourcelink.json
+C:\Users\huseyin.sumer\source\repos\Intern-Project\InternProject.core\obj\Debug\net10.0\InternProject.core.dll
+C:\Users\huseyin.sumer\source\repos\Intern-Project\InternProject.core\obj\Debug\net10.0\refint\InternProject.core.dll
+C:\Users\huseyin.sumer\source\repos\Intern-Project\InternProject.core\obj\Debug\net10.0\InternProject.core.pdb
+C:\Users\huseyin.sumer\source\repos\Intern-Project\InternProject.core\obj\Debug\net10.0\ref\InternProject.core.dll
+C:\Users\huseyin.sumer\source\repos\Intern-Project\InternProject.core\bin\Debug\net10.0\mongocrypt.dll
+C:\Users\huseyin.sumer\source\repos\Intern-Project\InternProject.core\obj\Debug\net10.0\InternProject.core.csproj.AssemblyReference.cache

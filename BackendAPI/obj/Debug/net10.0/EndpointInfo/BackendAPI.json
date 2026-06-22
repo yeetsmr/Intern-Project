@@ -13,26 +13,26 @@
     }
   ],
   "paths": {
-    "/api/Tasks/filter": {
+    "/api/auth/login": {
       "post": {
         "tags": [
-          "Tasks"
+          "Auth"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FilterDto"
+                "$ref": "#/components/schemas/LoginDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/FilterDto"
+                "$ref": "#/components/schemas/LoginDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/FilterDto"
+                "$ref": "#/components/schemas/LoginDto"
               }
             }
           },
@@ -45,26 +45,26 @@
         }
       }
     },
-    "/api/Tasks": {
+    "/api/tasks/filter": {
       "post": {
         "tags": [
-          "Tasks"
+          "Task"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/task"
+                "$ref": "#/components/schemas/FilterDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/task"
+                "$ref": "#/components/schemas/FilterDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/task"
+                "$ref": "#/components/schemas/FilterDto"
               }
             }
           },
@@ -73,107 +73,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Tasks/{TaskName}": {
-      "put": {
-        "tags": [
-          "Tasks"
-        ],
-        "parameters": [
-          {
-            "name": "TaskName",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/task"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/task"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/task"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Tasks"
-        ],
-        "parameters": [
-          {
-            "name": "TaskName",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/WeatherForecast": {
-      "get": {
-        "tags": [
-          "WeatherForecast"
-        ],
-        "operationId": "GetWeatherForecast",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              }
-            }
           }
         }
       }
@@ -184,6 +83,22 @@
       "FilterDto": {
         "type": "object",
         "properties": {
+          "pageNumber": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "pageSize": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
           "taskNameContains": {
             "type": [
               "null",
@@ -213,90 +128,17 @@
               "null",
               "boolean"
             ]
-          },
-          "departmentStartsWith": {
-            "type": [
-              "null",
-              "string"
-            ]
-          },
-          "usernameEndsWith": {
-            "type": [
-              "null",
-              "string"
-            ]
-          },
-          "status": {
-            "type": [
-              "null",
-              "string"
-            ]
           }
         }
       },
-      "Priorty": {
-        "type": "integer"
-      },
-      "task": {
+      "LoginDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": [
-              "null",
-              "string"
-            ]
-          },
-          "taskName": {
+          "username": {
             "type": "string"
           },
-          "maxTime": {
-            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?$",
-            "type": [
-              "number",
-              "string"
-            ],
-            "format": "double"
-          },
-          "isCompleted": {
-            "type": "boolean"
-          },
-          "pri": {
-            "$ref": "#/components/schemas/Priorty"
-          },
-          "createdAfter": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "WeatherForecast": {
-        "type": "object",
-        "properties": {
-          "date": {
-            "type": "string",
-            "format": "date"
-          },
-          "temperatureC": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
-            "format": "int32"
-          },
-          "temperatureF": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
-            "format": "int32"
-          },
-          "summary": {
-            "type": [
-              "null",
-              "string"
-            ]
+          "password": {
+            "type": "string"
           }
         }
       }
@@ -304,10 +146,10 @@
   },
   "tags": [
     {
-      "name": "Tasks"
+      "name": "Auth"
     },
     {
-      "name": "WeatherForecast"
+      "name": "Task"
     }
   ]
 }
