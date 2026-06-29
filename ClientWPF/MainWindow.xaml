@@ -1,7 +1,7 @@
 ﻿<Window x:Class="ClientWPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Intern-Project WPF Task Management" Height="500" Width="800">
+        Title="Intern-Project WPF Task Management" Height="550" Width="850">
 
     <Grid Margin="15">
         <Grid.RowDefinitions>
@@ -16,18 +16,54 @@
             <TextBlock Text="API-Enabled Dynamic Filtering Panel" FontSize="12" Foreground="#7F8C8D"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,15">
-            <TextBlock Text="Task Name:" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,5,0" />
-            <TextBox x:Name="txtTaskName" Width="80" Margin="0,0,15,0" Padding="2" />
+        <StackPanel Grid.Row="1" Margin="0,0,0,15" Background="#F8F9FA" DataContext="10">
 
-            <TextBlock Text="Max Time:" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,5,0" />
-            <TextBox x:Name="txtMaxTime" Width="80" Margin="0,0,15,0" Padding="2" />
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Task Name:" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,5,0" />
 
-            <TextBlock Text="Priority:" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,5,0" />
-            <TextBox x:Name="txtPriority" Width="80" Margin="0,0,15,0" Padding="2" />
+                <ComboBox x:Name="cmbNameOperator" Width="100" Margin="0,0,5,0" SelectedIndex="0">
+                    <ComboBoxItem Content="Contains"/>
+                    <ComboBoxItem Content="Starts With"/>
+                    <ComboBoxItem Content="Ends With"/>
+                </ComboBox>
 
-            <Button x:Name="btnFilter" Content="Filter" Width="100" Padding="5" Background="#111111" Foreground="GhostWhite" FontWeight="Bold" Click="btnFilter_Click"/>
-            <Button x:Name="BtnLogin" Content="Login" Click="BtnLogin_Click" Foreground="Yellow" Background="Black" Width="100" Padding="5" Margin="5,0,0,0"/>
+                <TextBox x:Name="txtTaskName" Width="100" Margin="0,0,15,0" Padding="2" />
+
+                <Button x:Name="btnFilter" Content="Filter" Width="100" Padding="5" Background="#111111" Foreground="GhostWhite" FontWeight="Bold" Click="btnFilter_Click" Margin="20,0,0,0"/>
+                <Button x:Name="BtnLogin" Content="Login" Click="BtnLogin_Click" Foreground="Yellow" Background="Black" Width="100" Padding="5" Margin="10,0,0,0"/>
+            </StackPanel>
+
+            <WrapPanel Orientation="Horizontal" Margin="0,5,0,0">
+
+                <StackPanel Orientation="Horizontal" Margin="0,5,20,5">
+                    <TextBlock Text="Time:" FontWeight="Bold" Width="40" VerticalAlignment="Center"/>
+                    <TextBox x:Name="txtMinTime" Width="40" ToolTip="Min Time"/>
+                    <TextBlock Text="-" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                    <TextBox x:Name="txtMaxTime" Width="40" ToolTip="Max Time"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5,20,5">
+                    <TextBlock Text="Date:" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <DatePicker x:Name="dpStartDate" Width="100"/>
+                    <TextBlock Text=" - " VerticalAlignment="Center" Margin="5,0"/>
+                    <DatePicker x:Name="dpEndDate" Width="100"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5,20,5">
+                    <TextBlock Text="Priority:" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <ComboBox x:Name="cmbPriority" Width="100" SelectedIndex="0">
+                        <ComboBoxItem Content="All" />
+                        <ComboBoxItem Content="Low" />
+                        <ComboBoxItem Content="Mid" />
+                        <ComboBoxItem Content="High" />
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                    <CheckBox x:Name="chkIsCompleted" Content="Completed Only" VerticalAlignment="Center" FontWeight="Bold" Checked="AutoFilter_Changed" Unchecked="AutoFilter_Changed"/>
+                </StackPanel>
+
+            </WrapPanel>
         </StackPanel>
 
         <ListView Grid.Row="2" Name="TaskListView" Background="#FAFAFA" BorderBrush="#BDC3C7" BorderThickness="1">
@@ -35,17 +71,22 @@
                 <GridView>
                     <GridViewColumn Header="Task ID" DisplayMemberBinding="{Binding Id}" Width="150"/>
                     <GridViewColumn Header="Task Name" DisplayMemberBinding="{Binding TaskName}" Width="250"/>
-                    <GridViewColumn Header="Max Time" DisplayMemberBinding="{Binding MaxTime}" Width="130"/>
-                    <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding PriorityText}" Width="100"/>
-                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding IsCompleted}" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding MaxTime}" Width="100">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Content="Max Time" Tag="MaxTime" Click="ColumnHeader_Click"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding PriorityText}" Width="60"/>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding IsCompleted}" Width="60"/>
+                    <GridViewColumn Header="Created At" DisplayMemberBinding="{Binding CreatedAfter, StringFormat=\{0:dd.MM.yyyy\}}" Width="120"/>
                 </GridView>
             </ListView.View>
         </ListView>
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
-            <Button x:Name="btnPrevPage" Content="&lt; Previous Page" Width="100" Padding="5" Margin="0,0,15,0" Click="btnPrevPage_Click" Background="#BDC3C7" IsEnabled="False"/>
+            <Button x:Name="btnPrevPage" Content="&lt; Previous" Width="100" Padding="5" Margin="0,0,15,0" Click="btnPrevPage_Click" Background="#BDC3C7" IsEnabled="False"/>
             <TextBlock x:Name="txtPageInfo" Text="Page: 1" VerticalAlignment="Center" FontWeight="Bold" FontSize="14"/>
-            <Button x:Name="btnNextPage" Content="Next Page &gt;" Width="100" Padding="5" Margin="15,0,0,0" Click="btnNextPage_Click" Background="#2980B9" Foreground="White" FontWeight="Bold"/>
+            <Button x:Name="btnNextPage" Content="Next &gt;" Width="100" Padding="5" Margin="15,0,0,0" Click="btnNextPage_Click" Background="#2980B9" Foreground="White" FontWeight="Bold"/>
         </StackPanel>
     </Grid>
 </Window>

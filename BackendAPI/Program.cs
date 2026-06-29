@@ -10,8 +10,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-var jwtSettings = builder.Configuration.GetSection("Jwt");
-var secretKey = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
+var jwtsetting = builder.Configuration.GetSection("Jwt");
+var key = Encoding.UTF8.GetBytes(jwtsetting["Key"]!);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
@@ -21,19 +21,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = jwtSettings["Issuer"],
-        ValidAudience = jwtSettings["Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(secretKey)
+        ValidIssuer = jwtsetting["Issuer"],
+        ValidAudience = jwtsetting["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(key)
     };
 });
 
-string logDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Logs");
+string log = Path.Combine(Directory.GetCurrentDirectory(), "Logs");
 builder.Host.UseSerilog((context, configuration) =>
 {
     configuration
         .MinimumLevel.Information()
         .WriteTo.Console()
-        .WriteTo.File(Path.Combine(logDirectory, "api-log-.txt"), rollingInterval: RollingInterval.Day);
+        .WriteTo.File(Path.Combine(log, "api-log-.txt"), rollingInterval: RollingInterval.Day);
 });
 
 

@@ -1,8 +1,9 @@
-﻿using InternProject.Core;
-using InternProject.Business;
+﻿using InternProject.Business;
+using InternProject.Business.Mapping;
+using InternProject.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 
 namespace BackendAPI.Controllers
 {
@@ -17,18 +18,19 @@ namespace BackendAPI.Controllers
         {
             _taskService = taskService;
         }
-        [HttpPost("filter")]
-        public async Task<IActionResult> GetFilteredTasks([FromBody] FilterDto filterDto)
+
+        [HttpPost("filter-dynamic")]
+        public async Task<IActionResult> GetDynamicTasks([FromBody] DataSourceRequest request)
         {
-            try
-            {
-                var tasks = await _taskService.GetFilteredTasksAsync(filterDto);
-                return Ok(tasks);
-            }
-            catch (FluentValidation.ValidationException ex)
-            {
-                return BadRequest(new { Messages = ex.Errors });
-            }
+            FilterDto myCustomDto = TelerikToDTOMapper.MapToDto(request.Filter);
+
+            myCustomDto.PageNumber = request.PageNumber;
+            myCustomDto.PageSize = request.PageSize;
+
+
+            var tasks = await _taskService.GetDynamicFilteredTasksAsync(myCustomDto);
+
+            return Ok(tasks);
         }
     }
 }

@@ -17,15 +17,15 @@
   },
   {
     "ContainingType": "BackendAPI.Controllers.TaskController",
-    "Method": "GetFilteredTasks",
-    "RelativePath": "api/tasks/filter",
+    "Method": "GetDynamicTasks",
+    "RelativePath": "api/tasks/filter-dynamic",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "filterDto",
-        "Type": "InternProject.Core.FilterDto",
+        "Name": "request",
+        "Type": "InternProject.Core.DataSourceRequest",
         "IsRequired": true
       }
     ],

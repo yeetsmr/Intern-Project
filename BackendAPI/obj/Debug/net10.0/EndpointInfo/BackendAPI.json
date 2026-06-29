@@ -45,7 +45,7 @@
         }
       }
     },
-    "/api/tasks/filter": {
+    "/api/tasks/filter-dynamic": {
       "post": {
         "tags": [
           "Task"
@@ -54,17 +54,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FilterDto"
+                "$ref": "#/components/schemas/DataSourceRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/FilterDto"
+                "$ref": "#/components/schemas/DataSourceRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/FilterDto"
+                "$ref": "#/components/schemas/DataSourceRequest"
               }
             }
           },
@@ -80,7 +80,21 @@
   },
   "components": {
     "schemas": {
-      "FilterDto": {
+      "CompositeFilterDescriptor": {
+        "type": "object",
+        "properties": {
+          "filterDescriptors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FilterDescriptor"
+            }
+          },
+          "operator": {
+            "$ref": "#/components/schemas/FilterCompositionLogicalOperator"
+          }
+        }
+      },
+      "DataSourceRequest": {
         "type": "object",
         "properties": {
           "pageNumber": {
@@ -99,37 +113,34 @@
             ],
             "format": "int32"
           },
-          "taskNameContains": {
-            "type": [
-              "null",
-              "string"
-            ]
+          "filter": {
+            "$ref": "#/components/schemas/CompositeFilterDescriptor"
           },
-          "maxTime": {
-            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?$",
-            "type": [
-              "null",
-              "number",
-              "string"
-            ],
-            "format": "double"
-          },
-          "pri": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "null",
-              "integer",
-              "string"
-            ],
-            "format": "int32"
-          },
-          "isCompleted": {
-            "type": [
-              "null",
-              "boolean"
-            ]
+          "sorts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortDescriptor"
+            }
           }
         }
+      },
+      "FilterCompositionLogicalOperator": {
+        "type": "integer"
+      },
+      "FilterDescriptor": {
+        "type": "object",
+        "properties": {
+          "member": {
+            "type": "string"
+          },
+          "value": { },
+          "operator": {
+            "$ref": "#/components/schemas/FilterOperator"
+          }
+        }
+      },
+      "FilterOperator": {
+        "type": "integer"
       },
       "LoginDto": {
         "type": "object",
@@ -138,6 +149,17 @@
             "type": "string"
           },
           "password": {
+            "type": "string"
+          }
+        }
+      },
+      "SortDescriptor": {
+        "type": "object",
+        "properties": {
+          "member": {
+            "type": "string"
+          },
+          "sortDirection": {
             "type": "string"
           }
         }

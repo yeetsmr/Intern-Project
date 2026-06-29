@@ -24,13 +24,13 @@ namespace ClientConsole
         public DateTime? CreatedAfter { get; set; }
     }
 
-    public class task
+    public class Tasks
     {
         public string? Id { get; set; }
         public string TaskName { get; set; } = null!;
         public double MaxTime { get; set; }
         public bool IsCompleted { get; set; }
-        public Priorty pri { get; set; }
+        public Priorty Pri { get; set; }
         public DateTime CreatedAfter { get; set; }
     }
 
@@ -47,9 +47,9 @@ namespace ClientConsole
             builder.Host.UseSerilog((context, configuration) =>
             {
                 configuration
-                    .MinimumLevel.Information() 
-                    .WriteTo.Console()        
-                    .WriteTo.File("Logs/api-log-.txt", rollingInterval: RollingInterval.Day); 
+                    .MinimumLevel.Information()
+                    .WriteTo.Console()
+                    .WriteTo.File("Logs/api-log-.txt", rollingInterval: RollingInterval.Day);
             });
             string baseUrl = "https://localhost:7271/api/tasks";
 
@@ -66,26 +66,26 @@ namespace ClientConsole
 
                 for (int i = 1; i <= 50; i++)
                 {
-           
+
                     string randomAction = actions[rnd.Next(actions.Length)];
                     string randomTopic = topics[rnd.Next(topics.Length)];
 
-                    var randomTask = new task
+                    var randomTask = new Tasks
                     {
                         TaskName = $"{randomAction} {randomTopic} (Auto-{i})",
-                        MaxTime = Math.Round(rnd.NextDouble() * 10 + 0.5, 1), 
-                        IsCompleted = rnd.Next(2) == 0, 
-                        pri = (Priorty)rnd.Next(3),     
+                        MaxTime = Math.Round(rnd.NextDouble() * 10 + 0.5, 1),
+                        IsCompleted = rnd.Next(2) == 0,
+                        Pri = (Priorty)rnd.Next(3),
                         CreatedAfter = DateTime.Now.AddDays(-rnd.Next(1, 30))
                     };
 
-             
+
                     var res = await client.PostAsJsonAsync(baseUrl, randomTask);
 
                     if (res.IsSuccessStatusCode)
                     {
                         successCount++;
-                    
+
                         Console.Write("\rAdding data: " + successCount + "/50");
                     }
                 }
@@ -165,14 +165,14 @@ namespace ClientConsole
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var gelenTasklar = await response.Content.ReadFromJsonAsync<List<task>>();
+                    var gelenTasklar = await response.Content.ReadFromJsonAsync<List<Tasks>>();
 
                     Console.WriteLine("\n=== DYNAMIC FILTER RESULTS ===");
                     if (gelenTasklar != null && gelenTasklar.Count > 0)
                     {
                         foreach (var t in gelenTasklar)
                         {
-                            Console.WriteLine($"- Task: {t.TaskName}\n  Time: {t.MaxTime} | Priority: {t.pri} | Completed: {t.IsCompleted}");
+                            Console.WriteLine($"- Task: {t.TaskName}\n  Time: {t.MaxTime} | Priority: {t.Pri} | Completed: {t.IsCompleted}");
                         }
                         Console.WriteLine($"\nTotal found: {gelenTasklar.Count}");
                     }

@@ -22,7 +22,7 @@ namespace InternProject.Business
 
             if (loginDto.Username != "admin" || loginDto.Password != "123456")
             {
-                return null; 
+                return null;
             }
 
             var jwtSettings = _configuration.GetSection("Jwt");
@@ -31,13 +31,13 @@ namespace InternProject.Business
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, loginDto.Username),
-                new Claim(ClaimTypes.Role, "Admin") 
+                new Claim(ClaimTypes.Role, "Admin")
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddHours(2), 
+                Expires = DateTime.UtcNow.AddHours(2),
                 Issuer = jwtSettings["Issuer"],
                 Audience = jwtSettings["Audience"],
                 SigningCredentials = new SigningCredentials(
@@ -49,7 +49,7 @@ namespace InternProject.Business
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return tokenHandler.WriteToken(token); 
+            return tokenHandler.WriteToken(token);
         }
     }
 }

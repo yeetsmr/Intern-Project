@@ -1,4 +1,4 @@
-﻿namespace InternProject.WPF 
+﻿namespace InternProject.WPF
 {
 
     public static class TokenStore
@@ -9,7 +9,7 @@
 
     public class LoginResponse
     {
-        public string Token { get; set; }
-        public string Message { get; set; }
+        public string Token { get; set; } = null!;
+        public string Message { get; set; } = null!;
     }
 }
