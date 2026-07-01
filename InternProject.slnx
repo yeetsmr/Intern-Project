@@ -5,4 +5,5 @@
   <Project Path="InternProject.Business/InternProject.Business.csproj" Id="f0ace61c-2451-4f65-974f-0a206e2bded0" />
   <Project Path="InternProject.core/InternProject.Core.csproj" Id="1a9992a3-62f6-421f-931b-02c70892cb88" />
   <Project Path="InternProject.DataAccsess/InternProject.DataAccsess.csproj" Id="b2fa1cdf-eefe-440a-807b-2c3f1812cd65" />
+  <Project Path="InternProject.Performance/InternProject.Performance.csproj" Id="f8563b3c-6468-40f4-96a1-ea06dfd929d3" />
 </Solution>

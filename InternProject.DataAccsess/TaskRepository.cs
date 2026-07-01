@@ -1,4 +1,9 @@
-﻿using InternProject.Core;
+﻿using BenchmarkDotNet.Filters;
+using InternProject.Core;
+using InternProject.Core.Filters;
+using InternProject.Core.Interfaces;
+using InternProject.Core.Properties;
+using Microsoft.AspNetCore.Mvc.Filters;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -15,6 +20,12 @@ namespace InternProject.DataAccess
         public TaskRepository(IMongoDatabase database)
         {
             _task = database.GetCollection<Tasks>("dto");
+        }
+        public async Task CreateTaskAsync(Tasks task)
+        {
+
+            await _task.InsertOneAsync(task);
+
         }
 
         public async Task<List<Tasks>> GetTasksAsync(FilterDto request)
@@ -50,47 +61,52 @@ namespace InternProject.DataAccess
         }
 
 
-        private FilterDefinition<Tasks> BuildDynamicFilter(FilterDto dto)
+        private FilterDefinition<Tasks>? BuildDynamicFilter(FilterDto dto)
         {
             var builder = Builders<Tasks>.Filter;
             var filters = new List<FilterDefinition<Tasks>>();
 
-            if (dto == null)
-                return builder.Empty;
-
-            var properties = typeof(FilterDto).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var properties = dto.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
             foreach (var prop in properties)
             {
                 var propValue = prop.GetValue(dto);
-
-                if (propValue == null)
-                    continue;
+                if (propValue == null) continue;
 
                 string fieldName = prop.Name;
                 Type propType = prop.PropertyType;
-
                 FilterDefinition<Tasks>? fieldFilter = null;
 
                 if (propType == typeof(StringFilter))
                 {
                     fieldFilter = BuildStringFilter(builder, fieldName, (StringFilter)propValue);
                 }
-                else if (propType == typeof(NumericFilter))
+                else if (propType.IsGenericType && propType.GetGenericTypeDefinition() == typeof(NumericFilter<>))
                 {
-                    fieldFilter = BuildNumericFilter(builder, fieldName, (NumericFilter)propValue);
+                    fieldFilter = BuildNumericFilter(builder, fieldName, propValue);
                 }
                 else if (propType == typeof(BooleanFilter))
                 {
                     fieldFilter = BuildBooleanFilter(builder, fieldName, (BooleanFilter)propValue);
                 }
-                else if (propType == typeof(DateFilter))
-                {
-                    fieldFilter = BuildDateFilter(builder, fieldName, (DateFilter)propValue);
-                }
                 else if (propType.IsGenericType && propType.GetGenericTypeDefinition() == typeof(EnumFilter<>))
                 {
-                    fieldFilter = BuildEnumFilter(builder, fieldName, propValue, propType);
+                    var selectedValuesProp = propType.GetProperty("SelectedValues");
+                    var list = selectedValuesProp?.GetValue(propValue) as System.Collections.IEnumerable;
+
+                    if (list != null)
+                    {
+                        var intValues = new System.Collections.Generic.List<int>();
+                        foreach (var item in list)
+                        {
+                            intValues.Add((int)item);
+                        }
+
+                        if (intValues.Count > 0)
+                        {
+                            fieldFilter = builder.In(fieldName, intValues);
+                        }
+                    }
                 }
 
                 if (fieldFilter != null)
@@ -114,36 +130,17 @@ namespace InternProject.DataAccess
             return builder.Regex(fieldName, new BsonRegularExpression(pattern, "i"));
         }
 
-        private FilterDefinition<Tasks>? BuildNumericFilter(FilterDefinitionBuilder<Tasks> builder, string fieldName, NumericFilter filter)
+        private FilterDefinition<Tasks>? BuildNumericFilter(FilterDefinitionBuilder<Tasks> builder, string fieldName, dynamic filter)
         {
-            var numFilters = new List<FilterDefinition<Tasks>>();
+            var filters = new List<FilterDefinition<Tasks>>();
 
-            if (filter.Min.HasValue)
-                numFilters.Add(builder.Gte(fieldName, filter.Min.Value));
+            if (filter.Min != null)
+                filters.Add(builder.Gte(fieldName, filter.Min));
 
-            if (filter.Max.HasValue)
-                numFilters.Add(builder.Lte(fieldName, filter.Max.Value));
+            if (filter.Max != null)
+                filters.Add(builder.Lte(fieldName, filter.Max));
 
-            if (numFilters.Count == 0) return null;
-            if (numFilters.Count == 1) return numFilters[0];
-
-            return builder.And(numFilters);
-        }
-
-        private FilterDefinition<Tasks>? BuildDateFilter(FilterDefinitionBuilder<Tasks> builder, string fieldName, DateFilter filter)
-        {
-            var dateFilters = new List<FilterDefinition<Tasks>>();
-
-            if (filter.StartDate.HasValue)
-                dateFilters.Add(builder.Gte(fieldName, filter.StartDate.Value));
-
-            if (filter.EndDate.HasValue)
-                dateFilters.Add(builder.Lte(fieldName, filter.EndDate.Value));
-
-            if (dateFilters.Count == 0) return null;
-            if (dateFilters.Count == 1) return dateFilters[0];
-
-            return builder.And(dateFilters);
+            return filters.Count > 0 ? builder.And(filters) : null;
         }
 
         private FilterDefinition<Tasks>? BuildBooleanFilter(FilterDefinitionBuilder<Tasks> builder, string fieldName, BooleanFilter filter)

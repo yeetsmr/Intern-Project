@@ -1,4 +1,4 @@
-﻿using InternProject.Core;
+﻿using InternProject.Core.Properties;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;

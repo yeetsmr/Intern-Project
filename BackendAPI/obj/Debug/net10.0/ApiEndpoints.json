@@ -9,7 +9,23 @@
     "Parameters": [
       {
         "Name": "loginDto",
-        "Type": "InternProject.Core.LoginDto",
+        "Type": "InternProject.Core.Properties.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendAPI.Controllers.TaskController",
+    "Method": "CreateTask",
+    "RelativePath": "api/tasks/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "task",
+        "Type": "InternProject.Core.Properties.Tasks",
         "IsRequired": true
       }
     ],

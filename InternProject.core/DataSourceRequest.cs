@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using InternProject.Core.Properties;
+using System.Text.Json.Serialization;
 
 
 namespace InternProject.Core

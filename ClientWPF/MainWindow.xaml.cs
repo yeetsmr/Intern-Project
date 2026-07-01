@@ -61,12 +61,22 @@ namespace ClientWPF
 
     public class TaskViewModel
     {
+
         public string Id { get; set; } = null!;
         public string TaskName { get; set; } = null!;
-        public double MaxTime { get; set; }
-        public int pri { get; set; }
-        public bool IsCompleted { get; set; }
+
+        public double? MaxTime { get; set; }
+        public int? pri { get; set; }
+        public bool? IsCompleted { get; set; }
         public DateTime? CreatedAfter { get; set; }
+
+        public string AssigneeName { get; set; }
+        public int? Category { get; set; }
+        public double? EstimatedCost { get; set; }
+        public int? StoryPoints { get; set; }
+        public int? SprintNumber { get; set; }
+        public bool? IsActive { get; set; }
+        public DateTime? DueDate { get; set; }
 
         public string PriorityText
         {
@@ -75,6 +85,24 @@ namespace ClientWPF
                 if (pri == 0) return "low";
                 if (pri == 1) return "mid";
                 if (pri == 2) return "high";
+                return "Unknown";
+            }
+        }
+
+        public string CategoryText
+        {
+            get
+            {
+              
+                if (Category == 0) return "Work";
+                if (Category == 1) return "Personal";
+                if (Category == 2) return "Shopping";
+                if (Category == 3) return "Health";
+                if (Category == 4) return "Finance";
+                if (Category == 5) return "Education";
+                if (Category == 6) return "Travel";
+                if (Category == 7) return "Entertainment";
+                if (Category == 8) return "Other";
                 return "Unknown";
             }
         }
@@ -88,6 +116,7 @@ namespace ClientWPF
         private string activeSortColumn = "";
         private string activeSortDirection = "Ascending";
         private int sortState = 0;
+        private System.Windows.Controls.GridViewColumn? _activeColumn = null;
 
         public MainWindow()
         {
@@ -123,10 +152,32 @@ namespace ClientWPF
 
         private void ColumnHeader_Click(object sender, RoutedEventArgs e)
         {
-            var header = sender as System.Windows.Controls.GridViewColumnHeader;
-            if (header == null || header.Tag == null) return;
+            var header = e.OriginalSource as System.Windows.Controls.GridViewColumnHeader;
 
-            string clickedColumn = header.Tag.ToString();
+            if (header == null || header.Role == System.Windows.Controls.GridViewColumnHeaderRole.Padding || header.Column == null)
+                return;
+
+            string rawHeader = header.Column.Header?.ToString()?.Replace(" ▲", "")?.Replace(" ▼", "") ?? "";
+            string clickedColumn = header.Tag?.ToString() ?? rawHeader.Replace(" ", "");
+
+            switch (clickedColumn)
+            {
+                case "TaskID": clickedColumn = "Id"; break;
+                case "TaskName": clickedColumn = "TaskName"; break;
+                case "Assignee": clickedColumn = "AssigneeName"; break;
+                case "Category": clickedColumn = "Category"; break;
+                case "Cost": clickedColumn = "EstimatedCost"; break;
+                case "SP": clickedColumn = "StoryPoints"; break;
+                case "Sprint": clickedColumn = "SprintNumber"; break;
+                case "MaxTime": clickedColumn = "MaxTime"; break;
+                case "Priority": clickedColumn = "pri"; break;
+                case "Active": clickedColumn = "IsActive"; break;
+                case "Status": clickedColumn = "IsCompleted"; break;
+                case "CreatedAt": clickedColumn = "CreatedAfter"; break;
+                case "DueDate": clickedColumn = "DueDate"; break;
+            }
+
+            if (string.IsNullOrEmpty(clickedColumn)) return;
 
             if (activeSortColumn != clickedColumn)
             {
@@ -137,20 +188,36 @@ namespace ClientWPF
             else
             {
                 sortState++;
+                if (sortState > 2) sortState = 0; 
 
-                if (sortState > 2) sortState = 0;
+                if (sortState == 1) activeSortDirection = "Ascending";
+                else if (sortState == 2) activeSortDirection = "Descending";
+                else activeSortColumn = "";
+            }
 
+
+            if (_activeColumn != null && _activeColumn.Header != null && _activeColumn != header.Column)
+            {
+                _activeColumn.Header = _activeColumn.Header.ToString()!.Replace(" ▲", "").Replace(" ▼", "");
+            }
+
+            _activeColumn = header.Column;
+            if (_activeColumn.Header != null)
+            {
+                string cleanHeader = _activeColumn.Header.ToString()!.Replace(" ▲", "").Replace(" ▼", "");
+
+           
                 if (sortState == 1)
                 {
-                    activeSortDirection = "Ascending";
+                    _activeColumn.Header = cleanHeader + " ▲";
                 }
                 else if (sortState == 2)
                 {
-                    activeSortDirection = "Descending";
+                    _activeColumn.Header = cleanHeader + " ▼";
                 }
                 else
                 {
-                    activeSortColumn = "";
+                    _activeColumn.Header = cleanHeader; 
                 }
             }
 
@@ -163,104 +230,59 @@ namespace ClientWPF
             txtPageInfo.Text = $"Page: {currentPage}";
             btnPrevPage.IsEnabled = currentPage > 1;
 
-
             var request = new DataSourceRequest
             {
                 PageNumber = currentPage,
                 PageSize = 12,
-                Filter = new CompositeFilterDescriptor
-                {
-                    LogicalOperator = FilterCompositionLogicalOperator.And
-                }
+                Filter = new CompositeFilterDescriptor { LogicalOperator = FilterCompositionLogicalOperator.And }
             };
-
 
             if (!string.IsNullOrEmpty(activeSortColumn))
             {
-                request.Sorts.Add(new SortDescriptor
-                {
-                    Member = activeSortColumn,
-                    SortDirection = activeSortDirection
-                });
+                request.Sorts.Add(new SortDescriptor { Member = activeSortColumn, SortDirection = activeSortDirection });
             }
-
 
             if (cmbPriority != null && cmbPriority.SelectedIndex > 0)
-            {
-
-                int selectedPriorityValue = cmbPriority.SelectedIndex - 1;
-
-                request.Filter.FilterDescriptors.Add(new FilterDescriptor
-                {
-                    Member = "pri",
-                    Value = selectedPriorityValue,
-                    Operator = FilterOperator.IsEqualTo
-                });
-            }
+                FilterBuilder(request, "pri", (cmbPriority.SelectedIndex - 1).ToString(), FilterOperator.IsEqualTo);
 
             if (dpStartDate.SelectedDate.HasValue)
-            {
-                request.Filter.FilterDescriptors.Add(new FilterDescriptor
-                {
-                    Member = "CreatedAfter",
-                    Value = dpStartDate.SelectedDate.Value,
-                    Operator = FilterOperator.IsGreaterThanOrEqualTo
-                });
-            }
+                FilterBuilder(request, "CreatedAfter", dpStartDate.SelectedDate.Value, FilterOperator.IsGreaterThanOrEqualTo);
 
             if (dpEndDate.SelectedDate.HasValue)
-            {
-                request.Filter.FilterDescriptors.Add(new FilterDescriptor
-                {
-                    Member = "CreatedAfter",
-                    Value = dpEndDate.SelectedDate.Value,
-                    Operator = FilterOperator.IsLessThanOrEqualTo
-                });
-            }
+                FilterBuilder(request, "CreatedAfter", dpEndDate.SelectedDate.Value, FilterOperator.IsLessThanOrEqualTo);
 
             if (chkIsCompleted.IsChecked == true)
-            {
-                request.Filter.FilterDescriptors.Add(new FilterDescriptor
-                {
-                    Member = "IsCompleted",
-                    Value = true,
-                    Operator = FilterOperator.IsEqualTo
-                });
-            }
+                FilterBuilder(request, "IsCompleted", true, FilterOperator.IsEqualTo);
 
             if (double.TryParse(txtMinTime.Text, out double minTime))
-            {
-                request.Filter.FilterDescriptors.Add(new FilterDescriptor
-                {
-                    Member = "MaxTime",
-                    Value = minTime,
-                    Operator = FilterOperator.IsGreaterThanOrEqualTo
-                });
-            }
+                FilterBuilder(request, "MaxTime", minTime, FilterOperator.IsGreaterThanOrEqualTo);
 
             if (double.TryParse(txtMaxTime.Text, out double maxTime))
-            {
-                request.Filter.FilterDescriptors.Add(new FilterDescriptor
-                {
-                    Member = "MaxTime",
-                    Value = maxTime,
-                    Operator = FilterOperator.IsLessThanOrEqualTo
-                });
-            }
+                FilterBuilder(request, "MaxTime", maxTime, FilterOperator.IsLessThanOrEqualTo);
 
             if (!string.IsNullOrWhiteSpace(txtTaskName.Text))
             {
-                FilterOperator selectedOp = FilterOperator.Contains;
-                if (cmbNameOperator.SelectedIndex == 1) selectedOp = FilterOperator.StartsWith;
-                else if (cmbNameOperator.SelectedIndex == 2) selectedOp = FilterOperator.EndsWith;
-
-                request.Filter.FilterDescriptors.Add(new FilterDescriptor
-                {
-                    Member = "TaskName",
-                    Value = txtTaskName.Text,
-                    Operator = selectedOp
-                });
+                FilterOperator op = cmbNameOperator.SelectedIndex switch { 1 => FilterOperator.StartsWith, 2 => FilterOperator.EndsWith, _ => FilterOperator.Contains };
+                FilterBuilder(request, "TaskName", txtTaskName.Text, op);
             }
+
+            if (!string.IsNullOrWhiteSpace(txtAssigneeName.Text))
+                FilterBuilder(request, "AssigneeName", txtAssigneeName.Text, FilterOperator.Contains);
+
+            if (cmbCategory != null && cmbCategory.SelectedIndex > 0)
+                FilterBuilder(request, "Category", (cmbCategory.SelectedIndex - 1).ToString(), FilterOperator.IsEqualTo);
+
+            if (double.TryParse(txtEstimatedCost.Text, out double estCost))
+                FilterBuilder(request, "EstimatedCost", estCost, FilterOperator.IsLessThanOrEqualTo);
+
+            if (int.TryParse(txtStoryPoints.Text, out int sPts))
+                FilterBuilder(request, "StoryPoints", sPts, FilterOperator.IsEqualTo);
+
+            if (dpDueDate.SelectedDate.HasValue)
+                FilterBuilder(request, "DueDate", dpDueDate.SelectedDate.Value, FilterOperator.IsLessThanOrEqualTo);
+
+            if (chkIsActive.IsChecked == true)
+                FilterBuilder(request, "IsActive", true, FilterOperator.IsEqualTo);
 
             LoadDataFromApi(request);
         }
@@ -288,7 +310,10 @@ namespace ClientWPF
                     {
                         string jsonText = await response.Content.ReadAsStringAsync();
 
-                        var options = new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                        var options = new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true,
+                            NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString
+                        };
+
                         var taskList = System.Text.Json.JsonSerializer.Deserialize<List<TaskViewModel>>(jsonText, options);
 
                         if (taskList == null) taskList = new List<TaskViewModel>();
@@ -322,6 +347,16 @@ namespace ClientWPF
             {
                 MessageBox.Show("API connection error! Please make sure the API project is running.\nError: " + ex.Message);
             }
+        }
+
+        private void FilterBuilder(DataSourceRequest request, string memberName, object value, FilterOperator filterOperator)
+        {
+            request.Filter.FilterDescriptors.Add(new FilterDescriptor
+            {
+                Member = memberName,
+                Value = value,
+                Operator = filterOperator
+            });
         }
 
         private async void BtnLogin_Click(object sender, RoutedEventArgs e)

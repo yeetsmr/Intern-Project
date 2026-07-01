@@ -5,6 +5,8 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MongoDB.Driver;
+using InternProject.Core.Filters;
+using InternProject.Core.Properties;
 
 namespace InternProject.Business
 {
@@ -19,10 +21,14 @@ namespace InternProject.Business
             _logger = logger;
         }
 
-
         public async Task<List<Tasks>> GetDynamicFilteredTasksAsync(FilterDto request)
         {
             return await _taskRepository.GetTasksAsync(request);
+        }
+
+        public async Task CreateTaskAsync(Tasks task)
+        {
+            await _taskRepository.CreateTaskAsync(task);
         }
     }
 }

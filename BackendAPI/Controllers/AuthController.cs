@@ -1,5 +1,5 @@
 ﻿using InternProject.Business;
-using InternProject.Core;
+using InternProject.Core.Properties;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BackendAPI.Controllers

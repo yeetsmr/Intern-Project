@@ -1,9 +1,11 @@
 ﻿using InternProject.Business;
 using InternProject.Business.Mapping;
 using InternProject.Core;
+using InternProject.Core.Properties;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace BackendAPI.Controllers
 {
@@ -22,15 +24,23 @@ namespace BackendAPI.Controllers
         [HttpPost("filter-dynamic")]
         public async Task<IActionResult> GetDynamicTasks([FromBody] DataSourceRequest request)
         {
-            FilterDto myCustomDto = TelerikToDTOMapper.MapToDto(request.Filter);
+            var DTO = TelerikToDTOMapper.MapToDto<DetailedFilterDto>(request);
 
-            myCustomDto.PageNumber = request.PageNumber;
-            myCustomDto.PageSize = request.PageSize;
+            DTO.PageNumber = request.PageNumber;
+            DTO.PageSize = request.PageSize;
 
-
-            var tasks = await _taskService.GetDynamicFilteredTasksAsync(myCustomDto);
-
+            var tasks = await _taskService.GetDynamicFilteredTasksAsync(DTO);
             return Ok(tasks);
+        }
+
+        [AllowAnonymous] 
+        [HttpPost("create")] // Rota: https://localhost:7271/api/tasks/create
+        public async Task<IActionResult> CreateTask([FromBody] Tasks task)
+        {
+      
+            await _taskService.CreateTaskAsync(task);
+
+            return Ok(new { Message = "Task created successfully." });
         }
     }
 }
