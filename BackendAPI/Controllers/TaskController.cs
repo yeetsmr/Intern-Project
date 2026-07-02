@@ -34,7 +34,7 @@ namespace BackendAPI.Controllers
         }
 
         [AllowAnonymous] 
-        [HttpPost("create")] // Rota: https://localhost:7271/api/tasks/create
+        [HttpPost("create")]
         public async Task<IActionResult> CreateTask([FromBody] Tasks task)
         {
       
