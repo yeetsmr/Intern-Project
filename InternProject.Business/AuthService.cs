@@ -20,7 +20,7 @@ namespace InternProject.Business
         public string? GenerateToken(LoginDto loginDto)
         {
 
-            if (loginDto.Username != "admin" || loginDto.Password != "123456")
+            if (loginDto.Username != "admin" || loginDto.Password != "12")
             {
                 return null;
             }

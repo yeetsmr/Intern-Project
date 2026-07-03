@@ -361,31 +361,60 @@ namespace ClientWPF
 
         private async void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Password;
+
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Username or password can not be empty", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             using (HttpClient client = new HttpClient())
             {
                 var loginDto = new
                 {
-                    Username = "admin",
-                    Password = "123456"
+                    Username = username,
+                    Password = password
                 };
 
-                var response = await client.PostAsJsonAsync("https://localhost:7271/api/auth/login", loginDto);
-
-                if (response.IsSuccessStatusCode)
+                try
                 {
-                    var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
-                    if (result != null)
+                    HttpResponseMessage response = await client.PostAsJsonAsync("https://localhost:7271/api/auth/login", loginDto);
+
+                    if (response.IsSuccessStatusCode)
                     {
-                        TokenStore.Token = result.Token;
-                        MessageBox.Show("Login successful! Access token obtained.", "Access Granted");
-                        FetchDataWithCurrentPage();
+                        var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
+                        if (result != null)
+                        {
+                            TokenStore.Token = result.Token;
+                            MessageBox.Show($"Login successful, here is your token:{result.Token} ", "Approvde", MessageBoxButton.OK, MessageBoxImage.Information);
+                            
+
+                            LoginOverlay.Visibility = Visibility.Collapsed;
+                            MainAppContainer.Visibility = Visibility.Visible;
+
+                            FetchDataWithCurrentPage();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid username or password", "Try again", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Invalid username or password!", "Error");
+                    MessageBox.Show($"An error occured: {ex.Message}", "connection error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+        }
+        private void BtnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            TokenStore.Token = null;
+
+            MainAppContainer.Visibility = Visibility.Collapsed;
+            LoginOverlay.Visibility = Visibility.Visible;
+            txtPassword.Clear();
         }
     }
 }

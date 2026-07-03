@@ -4,8 +4,10 @@ using InternProject.Core.Interfaces;
 using InternProject.Core.Properties;
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
 
@@ -13,10 +15,18 @@ namespace InternProject.Business.Mapping
 {
     public class TelerikToDTOMapper
     {
+        private static class DelegateCache<TDto> where TDto : class
+        {
+            public static readonly PropertyInfo[] Properties = typeof(TDto).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            public static readonly ConcurrentDictionary<string, Action<TDto, object>> Setters =
+                new ConcurrentDictionary<string, Action<TDto, object>>(StringComparer.OrdinalIgnoreCase);
+        }
+
         public static TDto MapToDto<TDto>(DataSourceRequest request) where TDto : class, new()
         {
             var targetDto = new TDto();
-            var dtoProperties = typeof(TDto).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var dtoProperties = DelegateCache<TDto>.Properties;
 
             ProcessSorts(request, targetDto);
 
@@ -30,13 +40,23 @@ namespace InternProject.Business.Mapping
                 if (prop == null || !prop.CanWrite) continue;
 
                 var propValue = prop.GetValue(targetDto) ?? Activator.CreateInstance(prop.PropertyType);
-
                 MapFilterValue(descriptor, prop.PropertyType, propValue);
 
-                prop.SetValue(targetDto, propValue);
+                var setterDelegate = DelegateCache<TDto>.Setters.GetOrAdd(prop.Name, _ => CreateSetter<TDto>(prop));
+                setterDelegate(targetDto, propValue);
             }
 
             return targetDto;
+        }
+
+        private static Action<TDto, object> CreateSetter<TDto>(PropertyInfo propertyInfo)
+        {
+            var targetExp = Expression.Parameter(typeof(TDto), "target");
+            var valueExp = Expression.Parameter(typeof(object), "value");
+            var castValueExp = Expression.Convert(valueExp, propertyInfo.PropertyType);
+            var propertyExp = Expression.Property(targetExp, propertyInfo);
+            var assignExp = Expression.Assign(propertyExp, castValueExp);
+            return Expression.Lambda<Action<TDto, object>>(assignExp, targetExp, valueExp).Compile();
         }
 
         private static void ProcessSorts<TDto>(DataSourceRequest request, TDto targetDto) where TDto : class
