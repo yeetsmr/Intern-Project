@@ -14,7 +14,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ClientWPF")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< Updated upstream
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c5d2cc98a0d096120b7700a13ee30b8703a6f438")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d109e988246da5b74bda5ed1fd2717d07351c389")]
+>>>>>>> Stashed changes
 [assembly: System.Reflection.AssemblyProductAttribute("ClientWPF")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ClientWPF")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -244,7 +244,11 @@ namespace ClientWPF {
                 return;
             }
             _contentLoaded = true;
+<<<<<<< Updated upstream
             System.Uri resourceLocater = new System.Uri("/ClientWPF;V1.0.0.0;component/mainwindow.xaml", System.UriKind.Relative);
+=======
+            System.Uri resourceLocater = new System.Uri("/MVVM_WPF;V1.0.0.0;component/mainwindow.xaml", System.UriKind.Relative);
+>>>>>>> Stashed changes
             
             #line 1 "..\..\..\MainWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
