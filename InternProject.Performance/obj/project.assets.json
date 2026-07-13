@@ -3529,6 +3529,7 @@
   },
   "projectFileDependencyGroups": {
     "net10.0": [
+      "BenchmarkDotNet >= 0.15.8",
       "InternProject.Core >= 1.0.0"
     ]
   },
@@ -3588,6 +3589,12 @@
       "net10.0": {
         "framework": "net10.0",
         "targetAlias": "net10.0",
+        "dependencies": {
+          "BenchmarkDotNet": {
+            "target": "Package",
+            "version": "[0.15.8, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",

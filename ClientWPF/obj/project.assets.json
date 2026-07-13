@@ -3484,9 +3484,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\huseyin.sumer\\source\\repos\\Intern-Project\\ClientWPF\\ClientWPF.csproj",
-      "projectName": "ClientWPF",
-      "projectPath": "C:\\Users\\huseyin.sumer\\source\\repos\\Intern-Project\\ClientWPF\\ClientWPF.csproj",
+      "projectUniqueName": "C:\\Users\\huseyin.sumer\\source\\repos\\Intern-Project\\ClientWPF\\MVVM_WPF.csproj",
+      "projectName": "MVVM_WPF",
+      "projectPath": "C:\\Users\\huseyin.sumer\\source\\repos\\Intern-Project\\ClientWPF\\MVVM_WPF.csproj",
       "packagesPath": "C:\\Users\\huseyin.sumer\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\huseyin.sumer\\source\\repos\\Intern-Project\\ClientWPF\\obj\\",
       "projectStyle": "PackageReference",

@@ -1,12 +1,9 @@
-﻿using FluentValidation;
-using InternProject.Core;
+﻿using InternProject.Core;
+using InternProject.Core.Properties;
 using InternProject.DataAccess;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MongoDB.Driver;
-using InternProject.Core.Filters;
-using InternProject.Core.Properties;
 
 namespace InternProject.Business
 {
@@ -29,6 +26,19 @@ namespace InternProject.Business
         public async Task CreateTaskAsync(Tasks task)
         {
             await _taskRepository.CreateTaskAsync(task);
+        }
+
+
+        public async Task UpdateTaskAsync(string id, Tasks task)
+        {
+            await _taskRepository.UpdateTaskAsync(id, task);
+            _logger.LogInformation($"Task with ID {id} was updated.");
+        }
+
+        public async Task DeleteTaskAsync(string id)
+        {
+            await _taskRepository.DeleteTaskAsync(id);
+            _logger.LogInformation($"Task with ID {id} was deleted.");
         }
     }
 }

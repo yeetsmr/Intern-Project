@@ -75,5 +75,4 @@ var validToken = new JwtSecurityTokenHandler().WriteToken(new JwtSecurityTokenHa
 Console.WriteLine("Token for the Stress Test:");
 Console.WriteLine(validToken);
 
-
 app.Run();

@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v10.0": {
       "InternProject.Performance/1.0.0": {
         "dependencies": {
+          "BenchmarkDotNet": "0.15.8",
           "InternProject.Core": "1.0.0"
         },
         "runtime": {

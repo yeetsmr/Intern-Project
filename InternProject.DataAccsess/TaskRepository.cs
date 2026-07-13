@@ -147,6 +147,16 @@ namespace InternProject.DataAccess
         {
             return builder.Eq(fieldName, filter.Value);
         }
+        public async Task UpdateTaskAsync(string id, Tasks task)
+        {
+            task.Id = id;
+            await _task.ReplaceOneAsync(t => t.Id == id, task);
+        }
+
+        public async Task DeleteTaskAsync(string id)
+        {
+            await _task.DeleteOneAsync(t => t.Id == id);
+        }
 
         private FilterDefinition<Tasks>? BuildEnumFilter(FilterDefinitionBuilder<Tasks> builder, string fieldName, object filterValue, Type propType)
         {

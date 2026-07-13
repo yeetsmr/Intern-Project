@@ -1,11 +1,10 @@
 ﻿using InternProject.Business;
-using InternProject.Business.Mapping;
+using InternProject.Business.MappingAlgoritms;
 using InternProject.Core;
 using InternProject.Core.Properties;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace BackendAPI.Controllers
 {
@@ -22,25 +21,57 @@ namespace BackendAPI.Controllers
         }
 
         [HttpPost("filter-dynamic")]
-        public async Task<IActionResult> GetDynamicTasks([FromBody] DataSourceRequest request)
+        public async Task<IActionResult> GetDynamicTasks([FromQuery] string? mappingMethod, [FromBody] DataSourceRequest request)
         {
-            var DTO = TelerikToDTOMapper.MapToDto<DetailedFilterDto>(request);
+            DetailedFilterDto DTO;
+            switch (mappingMethod?.ToLower())
+            {
+                case "reflection":
+
+                    DTO = TelerikToDtoReflectionMapping.MapToDto<DetailedFilterDto>(request);
+                    break;
+
+                case "direct":
+
+                    DTO = TelerikToDtoDirectMapping.MapToDto(request);
+                    break;
+
+                case "cet":
+                default:
+                    DTO = TelerikToDtoCteMapping.MapToDto<DetailedFilterDto>(request);
+                    break;
+            }
 
             DTO.PageNumber = request.PageNumber;
             DTO.PageSize = request.PageSize;
 
             var tasks = await _taskService.GetDynamicFilteredTasksAsync(DTO);
             return Ok(tasks);
+            //return Ok(DTO);
         }
 
-        [AllowAnonymous] 
-        [HttpPost("create")] // Rota: https://localhost:7271/api/tasks/create
+        [AllowAnonymous]
+        [HttpPost]
         public async Task<IActionResult> CreateTask([FromBody] Tasks task)
         {
-      
             await _taskService.CreateTaskAsync(task);
+            return Ok(task);
+        }
 
-            return Ok(new { Message = "Task created successfully." });
+        [AllowAnonymous]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateTask(string id, [FromBody] Tasks task)
+        {
+            await _taskService.UpdateTaskAsync(id, task);
+            return Ok(new { Message = "Task updated successfully." });
+        }
+
+        [AllowAnonymous]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTask(string id)
+        {
+            await _taskService.DeleteTaskAsync(id);
+            return Ok(new { Message = "Task deleted successfully." });
         }
     }
 }

@@ -13,7 +13,7 @@ namespace InternProject.Core.Properties
         public string? Id { get; set; }
 
         public string TaskName { get; set; } = null!;
-        public string AssigneeName { get; set; } = null!;
+        public string EmployeeName { get; set; } = null!;
 
         public double MaxTime { get; set; }
         public double EstimatedCost { get; set; }
