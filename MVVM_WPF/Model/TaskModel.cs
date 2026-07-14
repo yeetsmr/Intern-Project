@@ -1,9 +1,18 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace MVVM_WPF.Model
 {
-    public class TaskModel
+    public class TaskModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public string? Id { get; set; }
         public string? TaskName { get; set; }
         public double? MaxTime { get; set; }
@@ -43,6 +52,44 @@ namespace MVVM_WPF.Model
                 if (Category == 7) return "Entertainment";
                 if (Category == 8) return "Other";
                 return "Unknown";
+            }
+        }
+
+        private int _fadeCounter = 0;
+
+        private bool _isNew;
+        public bool IsNew
+        {
+            get => _isNew;
+            set
+            {
+                _isNew = value;
+                OnPropertyChanged();
+                if (value) StartFadeTimer();
+            }
+        }
+
+        private bool _isUpdated;
+        public bool IsUpdated
+        {
+            get => _isUpdated;
+            set
+            {
+                _isUpdated = value;
+                OnPropertyChanged(); 
+                if (value) StartFadeTimer();
+            }
+        }
+
+        private async void StartFadeTimer()
+        {
+            int currentCounter = ++_fadeCounter;
+            await Task.Delay(TimeSpan.FromMinutes(5));
+
+            if (currentCounter == _fadeCounter)
+            {
+                if (IsNew) IsNew = false;
+                if (IsUpdated) IsUpdated = false;
             }
         }
     }

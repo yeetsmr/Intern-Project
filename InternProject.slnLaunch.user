@@ -7,7 +7,7 @@
         "Action": "Start"
       },
       {
-        "Path": "ClientWPF\\MVVM_WPF.csproj",
+        "Path": "MVVM_WPF\\MVVM_WPF.csproj",
         "Action": "Start"
       }
     ]

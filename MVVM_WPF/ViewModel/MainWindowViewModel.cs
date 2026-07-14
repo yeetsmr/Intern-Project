@@ -5,13 +5,16 @@ using MVVM_WPF.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using MVVM_WPF.Converters;
 
 namespace MVVM_WPF.ViewModel
 {
@@ -86,7 +89,6 @@ namespace MVVM_WPF.ViewModel
             set { _deleteTask = value; OnPropertyChanged(); }
         }
 
-
         private string _taskNameFilter;
         public string TaskNameFilter
         {
@@ -100,7 +102,6 @@ namespace MVVM_WPF.ViewModel
             get => _nameOperatorIndex;
             set { if (_nameOperatorIndex != value) { _nameOperatorIndex = value; OnPropertyChanged(); } }
         }
-
 
         private string _employeeNameFilter;
         [FilterConfig("EmployeeName", FilterOperator.Contains)]
@@ -203,7 +204,6 @@ namespace MVVM_WPF.ViewModel
             set { if (_isActiveFilter != value) { _isActiveFilter = value; OnPropertyChanged(); ExecuteFilter(null); } }
         }
 
-
         public ICommand LoginCommand { get; }
         public ICommand LogoutCommand { get; }
         public ICommand FilterCommand { get; }
@@ -212,6 +212,7 @@ namespace MVVM_WPF.ViewModel
         public ICommand AddTaskCommand { get; }
         public ICommand UpdateTaskCommand { get; }
         public ICommand DeleteTaskCommand { get; }
+        public ICommand CompleteTaskCommand { get; }
 
         public MainWindowViewModel()
         {
@@ -223,6 +224,16 @@ namespace MVVM_WPF.ViewModel
             AddTaskCommand = new RelayCommand(ExecuteAddTask);
             UpdateTaskCommand = new RelayCommand(ExecuteUpdateTask);
             DeleteTaskCommand = new RelayCommand(ExecuteDeleteTask);
+            CompleteTaskCommand = new RelayCommand(ExecuteCompleteTask);
+        }
+
+        public void ExecuteCompleteTask(object parameter)
+        {
+            if (UpdateTask != null)
+            {
+                UpdateTask.IsCompleted = true;
+                ExecuteUpdateTask(null);
+            }
         }
 
         private async void ExecuteAddTask(object parameter)
@@ -271,7 +282,9 @@ namespace MVVM_WPF.ViewModel
 
                             if (createdTask != null)
                             {
-                                TaskList.Add(createdTask);
+                                createdTask.IsNew = true;
+                                TaskList.Insert(0, createdTask);
+
                                 NewTask = new TaskModel();
                                 MessageBox.Show("Task added successfully!", "Info:", MessageBoxButton.OK, MessageBoxImage.Information);
                             }
@@ -315,7 +328,14 @@ namespace MVVM_WPF.ViewModel
                         if (response.IsSuccessStatusCode)
                         {
                             MessageBox.Show("Task updated successfully!");
-                            FetchData();
+                            string savedId = UpdateTask.Id; 
+                            await FetchDataAsync(); 
+
+                            var updatedItem = TaskList.FirstOrDefault(t => t.Id == savedId);
+                            if (updatedItem != null)
+                            {
+                                updatedItem.IsUpdated = true;
+                            }
                         }
                         else
                         {
@@ -355,7 +375,7 @@ namespace MVVM_WPF.ViewModel
                         if (response.IsSuccessStatusCode)
                         {
                             MessageBox.Show("Task deleted!");
-                            FetchData();
+                            await FetchDataAsync();
                         }
                         else
                         {
@@ -394,7 +414,7 @@ namespace MVVM_WPF.ViewModel
                             LoginVisibility = Visibility.Collapsed;
                             MainAppVisibility = Visibility.Visible;
                             passwordBox.Clear();
-                            FetchData();
+                            await FetchDataAsync();
                         }
                     }
                     else
@@ -417,30 +437,30 @@ namespace MVVM_WPF.ViewModel
             TaskList.Clear();
         }
 
-        private void ExecuteFilter(object parameter)
+        private async void ExecuteFilter(object parameter)
         {
             CurrentPage = 1;
-            FetchData();
+            await FetchDataAsync();
         }
 
-        private void ExecuteNextPage(object parameter)
+        private async void ExecuteNextPage(object parameter)
         {
             CurrentPage++;
-            FetchData();
+            await FetchDataAsync();
         }
         private bool CanExecuteNextPage(object parameter) => TaskList.Count == 12;
 
-        private void ExecutePrevPage(object parameter)
+        private async void ExecutePrevPage(object parameter)
         {
             if (CurrentPage > 1)
             {
                 CurrentPage--;
-                FetchData();
+                await FetchDataAsync();
             }
         }
         private bool CanExecutePrevPage(object parameter) => CurrentPage > 1;
 
-        private async void FetchData()
+        private async Task FetchDataAsync()
         {
             var request = new DataSourceRequest
             {
@@ -524,10 +544,27 @@ namespace MVVM_WPF.ViewModel
                             fetchedTasks = System.Text.Json.JsonSerializer.Deserialize<List<TaskModel>>(jsonText, options);
                         }
 
+                        var activeNewIds = TaskList.Where(t => t.IsNew).Select(t => t.Id).ToList();
+                        var activeUpdatedIds = TaskList.Where(t => t.IsUpdated).Select(t => t.Id).ToList();
+
                         TaskList.Clear();
+
                         if (fetchedTasks != null)
                         {
-                            foreach (var task in fetchedTasks) TaskList.Add(task);
+                            foreach (var task in fetchedTasks)
+                            {
+                                if (task.Id != null && activeNewIds.Contains(task.Id))
+                                {
+                                    task.IsNew = true;
+                                }
+
+                                if (task.Id != null && activeUpdatedIds.Contains(task.Id))
+                                {
+                                    task.IsUpdated = true;
+                                }
+
+                                TaskList.Add(task);
+                            }
                         }
                     }
                     else
