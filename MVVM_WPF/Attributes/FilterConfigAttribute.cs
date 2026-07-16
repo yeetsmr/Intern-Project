@@ -1,7 +1,7 @@
 ﻿using System;
-using MVVM_WPF.Model;
+using MVVM_WPF.Model.Enums;
 
-namespace MVVM_WPF.MVVM
+namespace MVVM_WPF.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class FilterConfigAttribute : Attribute

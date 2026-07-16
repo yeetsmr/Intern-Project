@@ -1,14 +1,14 @@
 ﻿using MVVM_WPF.Model;
 using MVVM_WPF.MVVM;
 using MVVM_WPF.View;
+using MVVM_WPF.Services;
+using MVVM_WPF.Attributes;
+using MVVM_WPF.Model.Enums;
+using MVVM_WPF.Resources;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,25 +16,11 @@ using System.Windows.Input;
 
 namespace MVVM_WPF.ViewModel
 {
-    [AttributeUsage(AttributeTargets.Property)]
-    public class FilterConfigAttribute : Attribute
-    {
-        public string Member { get; }
-        public FilterOperator Operator { get; }
-
-        public FilterConfigAttribute(string member, FilterOperator op)
-        {
-            Member = member;
-            Operator = op;
-        }
-    }
-
     public class MainWindowViewModel : BaseViewModel
     {
-        private const string ApiUrl = "https://localhost:7271/api/tasks/filter-dynamic";
-        private const string AuthUrl = "https://localhost:7271/api/auth/login";
-        private const string AddTaskUrl = "https://localhost:7271/api/tasks";
+        private readonly ApiService _apiService;
 
+        #region Properties (Özellikler)
         private Visibility _loginVisibility = Visibility.Visible;
         public Visibility LoginVisibility
         {
@@ -202,18 +188,27 @@ namespace MVVM_WPF.ViewModel
             get => _isActiveFilter;
             set { if (_isActiveFilter != value) { _isActiveFilter = value; OnPropertyChanged(); ExecuteFilter(null); } }
         }
+        #endregion
 
-        public ICommand LoginCommand { get; }
-        public ICommand LogoutCommand { get; }
-        public ICommand FilterCommand { get; }
-        public ICommand NextPageCommand { get; }
-        public ICommand PrevPageCommand { get; }
-        public ICommand AddTaskCommand { get; }
-        public ICommand UpdateTaskCommand { get; }
-        public ICommand DeleteTaskCommand { get; }
-        public ICommand CompleteTaskCommand { get; }
+        #region Commands
+        public ICommand LoginCommand { get; private set; }
+        public ICommand LogoutCommand { get; private set; }
+        public ICommand FilterCommand { get; private set; }
+        public ICommand NextPageCommand { get; private set; }
+        public ICommand PrevPageCommand { get; private set; }
+        public ICommand AddTaskCommand { get; private set; }
+        public ICommand UpdateTaskCommand { get; private set; }
+        public ICommand DeleteTaskCommand { get; private set; }
+        public ICommand CompleteTaskCommand { get; private set; }
+        #endregion
 
         public MainWindowViewModel()
+        {
+            _apiService = new ApiService();
+            InitializeCommands();
+        }
+
+        private void InitializeCommands()
         {
             LoginCommand = new RelayCommand(ExecuteLogin);
             LogoutCommand = new RelayCommand(ExecuteLogout);
@@ -226,170 +221,113 @@ namespace MVVM_WPF.ViewModel
             CompleteTaskCommand = new RelayCommand(ExecuteCompleteTask);
         }
 
-        public void ExecuteCompleteTask(object parameter)
+        private void SetupInitialTask()
         {
-            if (UpdateTask != null)
+            NewTask = new TaskModel
             {
-                UpdateTask.IsCompleted = true;
-                ExecuteUpdateTask(null);
-            }
+                EmployeeName = "Ahmet",
+                TaskName = "MongoDB Task",
+                pri = 0,
+                IsCompleted = false,
+                IsActive = true,
+                CreatedAfter = DateTime.Now,
+                DueDate = DateTime.Now.AddDays(7),
+                EstimatedCost = 0,
+                StoryPoints = 0,
+                MaxTime = 0,
+                SprintNumber = 0
+            };
         }
 
-        private async void ExecuteAddTask(object parameter)
+        private void InsertTaskToGrid(TaskModel task)
         {
+            task.IsNew = true;
+            TaskList.Insert(0, task);
             NewTask = new TaskModel();
-            NewTask.EmployeeName = "Ahmet";
-            NewTask.TaskName = "MongoDB Task";
-            NewTask.pri = 0;
-            NewTask.IsCompleted = false;
-            NewTask.IsActive = true;
-            NewTask.CreatedAfter = DateTime.Now;
-            NewTask.DueDate = DateTime.Now.AddDays(7);
-            NewTask.EstimatedCost = 0;
-            NewTask.StoryPoints = 0;
-            NewTask.MaxTime = 0;
-            NewTask.SprintNumber = 0;
+        }
 
-            var editor = new TaskEditorWindow { DataContext = NewTask };
-
-            if (editor.ShowDialog() == true)
+        private void MoveUpdatedTaskToTop(string savedId)
+        {
+            var updatedItem = TaskList.FirstOrDefault(t => t.Id == savedId);
+            if (updatedItem != null)
             {
-                if (string.IsNullOrWhiteSpace(NewTask.TaskName))
-                {
-                    MessageBox.Show("Task name can not be null!", "Warning:", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
-                try
-                {
-                    using (HttpClient client = new HttpClient())
-                    {
-                        if (string.IsNullOrEmpty(TokenStore.Token)) return;
-                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenStore.Token);
-
-                        HttpResponseMessage response = await client.PostAsJsonAsync(AddTaskUrl, NewTask);
-                        if (!response.IsSuccessStatusCode)
-                        {
-                            var errorContent = await response.Content.ReadAsStringAsync();
-                            MessageBox.Show($"API returned error: {errorContent}");
-                            return;
-                        }
-
-                        if (response.IsSuccessStatusCode)
-                        {
-                            var createdTask = await response.Content.ReadFromJsonAsync<TaskModel>(new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-                            if (createdTask != null)
-                            {
-                                createdTask.IsNew = true;
-                                TaskList.Insert(0, createdTask);
-
-                                NewTask = new TaskModel();
-                                MessageBox.Show("Task added successfully!", "Info:", MessageBoxButton.OK, MessageBoxImage.Information);
-                            }
-                        }
-                        else
-                        {
-                            string errorDetails = await response.Content.ReadAsStringAsync();
-                            MessageBox.Show($"Adding failed: {response.StatusCode}\n\nError Details:\n{errorDetails}",
-                                            "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("API Error: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                updatedItem.IsNew = false;
+                updatedItem.IsUpdated = true;
+                TaskList.Remove(updatedItem);
+                TaskList.Insert(0, updatedItem);
             }
         }
 
-        private async void ExecuteUpdateTask(object parameter)
+        private List<FilterDescriptor> BuildFilterList()
         {
-            if (UpdateTask == null || string.IsNullOrEmpty(UpdateTask.Id))
+            var filtersList = new List<FilterDescriptor>();
+
+            var properties = this.GetType().GetProperties();
+            foreach (var prop in properties)
             {
-                MessageBox.Show("Please select a valid task to update.");
-                return;
-            }
-            var editor = new TaskEditorWindow { DataContext = UpdateTask };
-
-            if (editor.ShowDialog() == true)
-            {
-                try
+                var attr = (FilterConfigAttribute)Attribute.GetCustomAttribute(prop, typeof(FilterConfigAttribute));
+                if (attr != null)
                 {
-                    using (HttpClient client = new HttpClient())
-                    {
-                        if (string.IsNullOrEmpty(TokenStore.Token)) return;
-                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenStore.Token);
+                    var value = prop.GetValue(this);
+                    if (value == null) continue;
+                    if (value is string str && string.IsNullOrWhiteSpace(str)) continue;
+                    if (value is bool b && b == false) continue;
 
-                        string url = $"{AddTaskUrl}/{UpdateTask.Id}";
-                        HttpResponseMessage response = await client.PutAsJsonAsync(url, UpdateTask);
-
-                        if (response.IsSuccessStatusCode)
-                        {
-                            MessageBox.Show("Task updated successfully!");
-                            string savedId = UpdateTask.Id;
-                            await FetchDataAsync();
-                            var updatedItem = TaskList.FirstOrDefault(t => t.Id == savedId);
-
-                            if (updatedItem != null)
-                            {
-                                updatedItem.IsNew = false;
-                                updatedItem.IsUpdated = true;
-                                TaskList.Remove(updatedItem);
-                                TaskList.Insert(0, updatedItem);
-                            }
-                        }
-                        else
-                        {
-                            string error = await response.Content.ReadAsStringAsync();
-                            MessageBox.Show($"Update failed: {response.StatusCode}\n{error}");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("API Error: " + ex.Message);
+                    filtersList.Add(new FilterDescriptor { Member = attr.Member, Operator = attr.Operator, Value = value });
                 }
             }
+
+            if (!string.IsNullOrWhiteSpace(TaskNameFilter))
+            {
+                FilterOperator apiOp = NameOperatorIndex switch { 1 => FilterOperator.StartsWith, 2 => FilterOperator.EndsWith, _ => FilterOperator.Contains };
+                filtersList.Add(new FilterDescriptor { Member = "TaskName", Operator = apiOp, Value = TaskNameFilter });
+            }
+
+            if (SelectedPriorityIndex > 0)
+                filtersList.Add(new FilterDescriptor { Member = "pri", Operator = FilterOperator.IsEqualTo, Value = SelectedPriorityIndex - 1 });
+
+            if (SelectedCategoryIndex > 0)
+                filtersList.Add(new FilterDescriptor { Member = "Category", Operator = FilterOperator.IsEqualTo, Value = SelectedCategoryIndex - 1 });
+
+            if (_activeGridFilters != null && _activeGridFilters.Count > 0)
+                filtersList.AddRange(_activeGridFilters);
+
+            return filtersList;
         }
 
-        private async void ExecuteDeleteTask(object parameter)
+        private void UpdateTaskListWithFetchedData(List<TaskModel> fetchedTasks)
         {
-            DeleteTask = UpdateTask;
+            var activeNewIds = TaskList.Where(t => t.IsNew).Select(t => t.Id).ToList();
+            var activeUpdatedIds = TaskList.Where(t => t.IsUpdated).Select(t => t.Id).ToList();
 
-            if (DeleteTask == null || string.IsNullOrEmpty(DeleteTask.Id))
-            {
-                MessageBox.Show("Please select a task to delete.");
-                return;
-            }
+            TaskList.Clear();
 
-            if (MessageBox.Show("Are you sure you want to delete this task?", "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (fetchedTasks == null) return;
+
+            var topItems = new List<TaskModel>();
+            var normalItems = new List<TaskModel>();
+
+            foreach (var task in fetchedTasks)
             {
-                try
+                if (task.Id != null && activeUpdatedIds.Contains(task.Id))
                 {
-                    using (HttpClient client = new HttpClient())
-                    {
-                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenStore.Token);
-
-                        string url = $"{AddTaskUrl}/{DeleteTask.Id}";
-                        HttpResponseMessage response = await client.DeleteAsync(url);
-
-                        if (response.IsSuccessStatusCode)
-                        {
-                            MessageBox.Show("Task deleted!");
-                            await FetchDataAsync();
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Delete failed: {response.StatusCode}");
-                        }
-                    }
+                    task.IsUpdated = true;
+                    task.IsNew = false;
+                    topItems.Add(task);
                 }
-                catch (Exception ex)
+                else if (task.Id != null && activeNewIds.Contains(task.Id))
                 {
-                    MessageBox.Show("API Error: " + ex.Message);
+                    task.IsNew = true;
+                    topItems.Add(task);
+                }
+                else
+                {
+                    normalItems.Add(task);
                 }
             }
+
+            foreach (var task in topItems) TaskList.Add(task);
+            foreach (var task in normalItems) TaskList.Add(task);
         }
 
         private async void ExecuteLogin(object parameter)
@@ -397,37 +335,22 @@ namespace MVVM_WPF.ViewModel
             var passwordBox = parameter as PasswordBox;
             if (string.IsNullOrWhiteSpace(Username) || passwordBox == null || string.IsNullOrWhiteSpace(passwordBox.Password))
             {
-                MessageBox.Show("Username or password can not be empty", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(MessageProvider.GetString(CustomMessages.LoginEmptyCredentials), "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            using (HttpClient client = new HttpClient())
+            try
             {
-                var loginDto = new { Username = Username, Password = passwordBox.Password };
-                try
-                {
-                    HttpResponseMessage response = await client.PostAsJsonAsync(AuthUrl, loginDto);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
-                        if (result != null)
-                        {
-                            TokenStore.Token = result.Token;
-                            LoginVisibility = Visibility.Collapsed;
-                            MainAppVisibility = Visibility.Visible;
-                            passwordBox.Clear();
-                            await FetchDataAsync();
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Invalid username or password", "Try again", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"An error occured: {ex.Message}", "Connection Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                TokenStore.Token = await _apiService.LoginAsync(Username, passwordBox.Password);
+
+                LoginVisibility = Visibility.Collapsed;
+                MainAppVisibility = Visibility.Visible;
+                passwordBox.Clear();
+                await FetchDataAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(MessageProvider.GetString(CustomMessages.ConnectionError, ex.Message), "Connection Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -473,52 +396,11 @@ namespace MVVM_WPF.ViewModel
 
         private async Task FetchDataAsync()
         {
-            var filtersList = new List<FilterDescriptor>();
-
-            var properties = this.GetType().GetProperties();
-            foreach (var prop in properties)
-            {
-                var attr = (FilterConfigAttribute)Attribute.GetCustomAttribute(prop, typeof(FilterConfigAttribute));
-                if (attr != null)
-                {
-                    var value = prop.GetValue(this);
-                    if (value == null) continue;
-                    if (value is string str && string.IsNullOrWhiteSpace(str)) continue;
-                    if (value is bool b && b == false) continue;
-
-                    filtersList.Add(new FilterDescriptor
-                    {
-                        Member = attr.Member,
-                        Operator = attr.Operator,
-                        Value = value
-                    });
-                }
-            }
-
-            if (!string.IsNullOrWhiteSpace(TaskNameFilter))
-            {
-                FilterOperator apiOp = NameOperatorIndex switch { 1 => FilterOperator.StartsWith, 2 => FilterOperator.EndsWith, _ => FilterOperator.Contains };
-                filtersList.Add(new FilterDescriptor { Member = "TaskName", Operator = apiOp, Value = TaskNameFilter });
-            }
-
-            if (SelectedPriorityIndex > 0)
-            {
-                filtersList.Add(new FilterDescriptor { Member = "pri", Operator = FilterOperator.IsEqualTo, Value = SelectedPriorityIndex - 1 });
-            }
-
-            if (SelectedCategoryIndex > 0)
-            {
-                filtersList.Add(new FilterDescriptor { Member = "Category", Operator = FilterOperator.IsEqualTo, Value = SelectedCategoryIndex - 1 });
-            }
-
-            if (_activeGridFilters != null && _activeGridFilters.Count > 0)
-            {
-                filtersList.AddRange(_activeGridFilters);
-            }
+            var filtersList = BuildFilterList();
 
             var compositeFilter = new CompositeFilterDescriptor
             {
-                LogicalOperator = FilterCompositionLogicalOperator.And, 
+                LogicalOperator = FilterCompositionLogicalOperator.And,
                 FilterDescriptors = filtersList
             };
 
@@ -531,96 +413,108 @@ namespace MVVM_WPF.ViewModel
 
             try
             {
-                using (HttpClient client = new HttpClient())
-                {
-                    if (string.IsNullOrEmpty(TokenStore.Token)) return;
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenStore.Token);
-
-                    HttpResponseMessage response = await client.PostAsJsonAsync(ApiUrl, requestPayload);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string jsonText = await response.Content.ReadAsStringAsync();
-                        var options = new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                        List<TaskModel> fetchedTasks = null;
-                        jsonText = jsonText.TrimStart();
-
-                        if (jsonText.StartsWith("{"))
-                        {
-                            using (var doc = System.Text.Json.JsonDocument.Parse(jsonText))
-                            {
-                                System.Text.Json.JsonElement root = doc.RootElement;
-                                System.Text.Json.JsonElement dataElement;
-
-                                if (root.TryGetProperty("data", out dataElement) ||
-                                    root.TryGetProperty("Data", out dataElement) ||
-                                    root.TryGetProperty("items", out dataElement) ||
-                                    root.TryGetProperty("Items", out dataElement))
-                                {
-                                    fetchedTasks = System.Text.Json.JsonSerializer.Deserialize<List<TaskModel>>(dataElement.GetRawText(), options);
-                                }
-                                else
-                                {
-                                    System.Windows.MessageBox.Show($"API returned successfuly but format is not right. Error:\n\n{jsonText}", "Format Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-                                    return;
-                                }
-                            }
-                        }
-                        else if (jsonText.StartsWith("["))
-                        {
-                            fetchedTasks = System.Text.Json.JsonSerializer.Deserialize<List<TaskModel>>(jsonText, options);
-                        }
-
-                        var activeNewIds = TaskList.Where(t => t.IsNew).Select(t => t.Id).ToList();
-                        var activeUpdatedIds = TaskList.Where(t => t.IsUpdated).Select(t => t.Id).ToList();
-
-                        TaskList.Clear();
-
-                        if (fetchedTasks != null)
-                        {
-                            var topItems = new List<TaskModel>();
-                            var normalItems = new List<TaskModel>();
-
-                            foreach (var task in fetchedTasks)
-                            {
-                                if (task.Id != null && activeUpdatedIds.Contains(task.Id))
-                                {
-                                    task.IsUpdated = true;
-                                    task.IsNew = false;
-                                    topItems.Add(task); 
-                                }
-                                else if (task.Id != null && activeNewIds.Contains(task.Id))
-                                {
-                                    task.IsNew = true;
-                                    topItems.Add(task);
-                                }
-                                else
-                                {
-                                    normalItems.Add(task); 
-                                }
-                            }
-
-                            foreach (var task in topItems)
-                            {
-                                TaskList.Add(task);
-                            }
-
-                            foreach (var task in normalItems)
-                            {
-                                TaskList.Add(task);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        string errorText = await response.Content.ReadAsStringAsync();
-                        System.Windows.MessageBox.Show($"API connection error: {response.StatusCode}\n\nDetay:\n{errorText}");
-                    }
-                }
+                var fetchedTasks = await _apiService.GetTasksAsync(requestPayload);
+                UpdateTaskListWithFetchedData(fetchedTasks);
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show("API Error: " + ex.Message);
+                MessageBox.Show(MessageProvider.GetString(CustomMessages.ApiGenericError, ex.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async void ExecuteAddTask(object parameter)
+        {
+            SetupInitialTask();
+
+            var editor = new TaskEditorWindow { DataContext = NewTask };
+
+            if (editor.ShowDialog() == true)
+            {
+                if (string.IsNullOrWhiteSpace(NewTask.TaskName))
+                {
+                    MessageBox.Show(MessageProvider.GetString(CustomMessages.TaskNameEmpty), "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                try
+                {
+                    var createdTask = await _apiService.AddTaskAsync(NewTask);
+
+                    if (createdTask != null)
+                    {
+                        InsertTaskToGrid(createdTask);
+                        MessageBox.Show(MessageProvider.GetString(CustomMessages.TaskAddedSuccess), "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(MessageProvider.GetString(CustomMessages.ApiGenericError, ex.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private async void ExecuteUpdateTask(object parameter)
+        {
+            if (UpdateTask == null || string.IsNullOrEmpty(UpdateTask.Id))
+            {
+                MessageBox.Show(MessageProvider.GetString(CustomMessages.TaskUpdateNotSelected), "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var editor = new TaskEditorWindow { DataContext = UpdateTask };
+
+            if (editor.ShowDialog() == true)
+            {
+                try
+                {
+                    await _apiService.UpdateTaskAsync(UpdateTask);
+
+                    MessageBox.Show(MessageProvider.GetString(CustomMessages.TaskUpdatedSuccess), "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    string savedId = UpdateTask.Id;
+                    await FetchDataAsync();
+
+                    MoveUpdatedTaskToTop(savedId);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(MessageProvider.GetString(CustomMessages.ApiGenericError, ex.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private async void ExecuteDeleteTask(object parameter)
+        {
+            DeleteTask = UpdateTask;
+
+            if (DeleteTask == null || string.IsNullOrEmpty(DeleteTask.Id))
+            {
+                MessageBox.Show(MessageProvider.GetString(CustomMessages.TaskDeleteNotSelected), "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (MessageBox.Show(MessageProvider.GetString(CustomMessages.TaskDeleteConfirm), "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    await _apiService.DeleteTaskAsync(DeleteTask.Id);
+
+                    MessageBox.Show(MessageProvider.GetString(CustomMessages.TaskDeletedSuccess), "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    await FetchDataAsync();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(MessageProvider.GetString(CustomMessages.ApiGenericError, ex.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        public void ExecuteCompleteTask(object parameter)
+        {
+            if (UpdateTask != null)
+            {
+                UpdateTask.IsCompleted = true;
+                ExecuteUpdateTask(null);
             }
         }
     }

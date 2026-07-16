@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using MVVM_WPF.ViewModel;
 using MVVM_WPF.Model;
+using MVVM_WPF.Model.Enums;
 
 namespace MVVM_WPF.View
 {
