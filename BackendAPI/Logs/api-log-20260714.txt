@@ -1295,3 +1295,251 @@
 2026-07-14 10:00:48.106 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.CreateTask (BackendAPI) in 13.9594ms
 2026-07-14 10:00:48.108 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.CreateTask (BackendAPI)'
 2026-07-14 10:00:48.109 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks - 200 null application/json; charset=utf-8 30.4888ms
+2026-07-14 15:06:13.626 +03:00 [INF] User profile is available. Using 'C:\Users\huseyin.sumer\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-07-14 15:06:13.945 +03:00 [INF] Now listening on: https://localhost:7271
+2026-07-14 15:06:13.949 +03:00 [INF] Now listening on: http://localhost:5083
+2026-07-14 15:06:14.010 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-07-14 15:06:14.012 +03:00 [INF] Hosting environment: Development
+2026-07-14 15:06:14.013 +03:00 [INF] Content root path: C:\Users\huseyin.sumer\source\repos\Intern-Project\BackendAPI
+2026-07-14 15:06:18.055 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/auth/login - application/json; charset=utf-8 null
+2026-07-14 15:06:18.185 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.AuthController.Login (BackendAPI)'
+2026-07-14 15:06:18.207 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(InternProject.Core.Properties.LoginDto) on controller BackendAPI.Controllers.AuthController (BackendAPI).
+2026-07-14 15:06:18.233 +03:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-07-14 15:06:18.242 +03:00 [INF] Executed action BackendAPI.Controllers.AuthController.Login (BackendAPI) in 29.9783ms
+2026-07-14 15:06:18.245 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.AuthController.Login (BackendAPI)'
+2026-07-14 15:06:18.247 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/auth/login - 200 null application/json; charset=utf-8 202.6828ms
+2026-07-14 15:06:18.289 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:06:18.324 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:06:18.335 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:06:18.496 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:06:18.503 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 166.0305ms
+2026-07-14 15:06:18.506 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:06:18.508 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 219.3818ms
+2026-07-14 15:06:40.322 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:06:40.334 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:06:40.336 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:06:40.537 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:06:40.548 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 207.4699ms
+2026-07-14 15:06:40.549 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:06:40.550 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 228.6985ms
+2026-07-14 15:06:46.685 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:06:46.692 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:06:46.694 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:06:46.712 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:06:46.715 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 16.975ms
+2026-07-14 15:06:46.717 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:06:46.719 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 33.3034ms
+2026-07-14 15:06:47.587 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:06:47.590 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:06:47.591 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:06:47.596 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:06:47.598 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 5.8649ms
+2026-07-14 15:06:47.600 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:06:47.601 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 14.7686ms
+2026-07-14 15:06:48.086 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:06:48.089 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:06:48.090 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:06:48.095 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:06:48.097 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 4.2321ms
+2026-07-14 15:06:48.098 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:06:48.100 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 13.9548ms
+2026-07-14 15:06:48.942 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:06:48.946 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:06:48.947 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:06:48.952 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:06:48.953 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 3.9917ms
+2026-07-14 15:06:48.954 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:06:48.955 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 13.1207ms
+2026-07-14 15:06:49.612 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:06:49.615 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:06:49.616 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:06:49.619 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:06:49.621 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 3.557ms
+2026-07-14 15:06:49.622 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:06:49.623 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 11.9784ms
+2026-07-14 15:06:50.192 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:06:50.195 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:06:50.197 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:06:50.200 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:06:50.202 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 3.5763ms
+2026-07-14 15:06:50.203 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:06:50.204 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 12.19ms
+2026-07-14 15:07:01.663 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks - application/json; charset=utf-8 null
+2026-07-14 15:07:01.668 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.CreateTask (BackendAPI)'
+2026-07-14 15:07:01.680 +03:00 [INF] Route matched with {action = "CreateTask", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] CreateTask(InternProject.Core.Properties.Tasks) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:01.833 +03:00 [INF] Executing OkObjectResult, writing value of type 'InternProject.Core.Properties.Tasks'.
+2026-07-14 15:07:01.835 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.CreateTask (BackendAPI) in 152.075ms
+2026-07-14 15:07:01.838 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.CreateTask (BackendAPI)'
+2026-07-14 15:07:01.840 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks - 200 null application/json; charset=utf-8 176.5312ms
+2026-07-14 15:07:27.268 +03:00 [INF] Request starting HTTP/1.1 PUT https://localhost:7271/api/tasks/6a562665c433a4472f320ab2 - application/json; charset=utf-8 null
+2026-07-14 15:07:27.273 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.UpdateTask (BackendAPI)'
+2026-07-14 15:07:27.284 +03:00 [INF] Route matched with {action = "UpdateTask", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UpdateTask(System.String, InternProject.Core.Properties.Tasks) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:27.472 +03:00 [INF] Task with ID 6a562665c433a4472f320ab2 was updated.
+2026-07-14 15:07:27.475 +03:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-07-14 15:07:27.477 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.UpdateTask (BackendAPI) in 190.7022ms
+2026-07-14 15:07:27.479 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.UpdateTask (BackendAPI)'
+2026-07-14 15:07:27.481 +03:00 [INF] Request finished HTTP/1.1 PUT https://localhost:7271/api/tasks/6a562665c433a4472f320ab2 - 200 null application/json; charset=utf-8 213.0375ms
+2026-07-14 15:07:28.656 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:07:28.659 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:28.660 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:28.666 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:07:28.667 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 4.876ms
+2026-07-14 15:07:28.669 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:28.670 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 14.1905ms
+2026-07-14 15:07:30.620 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:07:30.626 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:30.628 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:30.635 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:07:30.638 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 5.2747ms
+2026-07-14 15:07:30.640 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:30.642 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 22.7093ms
+2026-07-14 15:07:31.302 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:07:31.309 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:31.310 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:31.315 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:07:31.317 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 4.3533ms
+2026-07-14 15:07:31.318 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:31.320 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 17.971ms
+2026-07-14 15:07:31.529 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:07:31.533 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:31.535 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:31.538 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:07:31.539 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 3.1889ms
+2026-07-14 15:07:31.541 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:31.542 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 12.7266ms
+2026-07-14 15:07:31.689 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:07:31.692 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:31.693 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:31.698 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:07:31.700 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 3.8605ms
+2026-07-14 15:07:31.702 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:31.703 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 14.5496ms
+2026-07-14 15:07:31.827 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:07:31.834 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:31.837 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:31.845 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:07:31.847 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 4.5544ms
+2026-07-14 15:07:31.848 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:31.849 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 22.5113ms
+2026-07-14 15:07:31.981 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:07:31.985 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:31.986 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:31.991 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:07:31.993 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 4.4391ms
+2026-07-14 15:07:31.994 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:31.995 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 13.7305ms
+2026-07-14 15:07:32.115 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:07:32.119 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:32.120 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:32.124 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:07:32.127 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 4.4567ms
+2026-07-14 15:07:32.128 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:32.130 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 14.7857ms
+2026-07-14 15:07:32.262 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:07:32.274 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:32.276 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:32.285 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:07:32.287 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 6.7456ms
+2026-07-14 15:07:32.291 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:32.295 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 33.1782ms
+2026-07-14 15:07:35.749 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:07:35.751 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:35.752 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:35.757 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:07:35.758 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 4.1828ms
+2026-07-14 15:07:35.759 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:35.760 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 11.885ms
+2026-07-14 15:07:37.525 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:07:37.530 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:37.534 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:37.545 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:07:37.549 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 7.2149ms
+2026-07-14 15:07:37.552 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:37.554 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 29.6777ms
+2026-07-14 15:07:37.639 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:07:37.643 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:37.645 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:37.650 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:07:37.652 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 3.9992ms
+2026-07-14 15:07:37.654 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:37.655 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 16.865ms
+2026-07-14 15:07:37.779 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:07:37.782 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:37.783 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:37.787 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:07:37.789 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 3.7345ms
+2026-07-14 15:07:37.790 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:37.791 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 12.1957ms
+2026-07-14 15:07:37.918 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:07:37.920 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:37.922 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:37.928 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:07:37.931 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 5.5145ms
+2026-07-14 15:07:37.934 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:37.936 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 18.9464ms
+2026-07-14 15:07:38.046 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:07:38.049 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:38.051 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:38.055 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:07:38.057 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 4.2612ms
+2026-07-14 15:07:38.059 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:38.060 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 13.8442ms
+2026-07-14 15:07:38.178 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:07:38.182 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:38.183 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:38.188 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:07:38.191 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 4.5952ms
+2026-07-14 15:07:38.192 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:38.194 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 16.7181ms
+2026-07-14 15:07:38.320 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:07:38.324 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:38.325 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:38.329 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:07:38.330 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 3.1589ms
+2026-07-14 15:07:38.331 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:38.332 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 11.9295ms
+2026-07-14 15:07:47.442 +03:00 [INF] Request starting HTTP/1.1 PUT https://localhost:7271/api/tasks/6a54cd453334bfb193ca4855 - application/json; charset=utf-8 null
+2026-07-14 15:07:47.445 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.UpdateTask (BackendAPI)'
+2026-07-14 15:07:47.446 +03:00 [INF] Route matched with {action = "UpdateTask", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UpdateTask(System.String, InternProject.Core.Properties.Tasks) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:47.452 +03:00 [INF] Task with ID 6a54cd453334bfb193ca4855 was updated.
+2026-07-14 15:07:47.453 +03:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-07-14 15:07:47.455 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.UpdateTask (BackendAPI) in 7.2975ms
+2026-07-14 15:07:47.456 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.UpdateTask (BackendAPI)'
+2026-07-14 15:07:47.457 +03:00 [INF] Request finished HTTP/1.1 PUT https://localhost:7271/api/tasks/6a54cd453334bfb193ca4855 - 200 null application/json; charset=utf-8 15.3429ms
+2026-07-14 15:07:48.580 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:07:48.583 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:48.584 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:48.587 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:07:48.589 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 4.0746ms
+2026-07-14 15:07:48.591 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:48.593 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 12.9075ms
+2026-07-14 15:07:54.381 +03:00 [INF] Request starting HTTP/1.1 PUT https://localhost:7271/api/tasks/6a54cd453334bfb193ca4855 - application/json; charset=utf-8 null
+2026-07-14 15:07:54.387 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.UpdateTask (BackendAPI)'
+2026-07-14 15:07:54.390 +03:00 [INF] Route matched with {action = "UpdateTask", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UpdateTask(System.String, InternProject.Core.Properties.Tasks) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:54.397 +03:00 [INF] Task with ID 6a54cd453334bfb193ca4855 was updated.
+2026-07-14 15:07:54.398 +03:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-07-14 15:07:54.401 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.UpdateTask (BackendAPI) in 7.1909ms
+2026-07-14 15:07:54.402 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.UpdateTask (BackendAPI)'
+2026-07-14 15:07:54.403 +03:00 [INF] Request finished HTTP/1.1 PUT https://localhost:7271/api/tasks/6a54cd453334bfb193ca4855 - 200 null application/json; charset=utf-8 21.7585ms
+2026-07-14 15:07:55.879 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:07:55.883 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:55.886 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:07:55.899 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:07:55.905 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 12.1926ms
+2026-07-14 15:07:55.909 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:07:55.910 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 31.6221ms
+2026-07-14 15:08:08.255 +03:00 [INF] Request starting HTTP/1.1 DELETE https://localhost:7271/api/tasks/6a54cd453334bfb193ca4855 - null null
+2026-07-14 15:08:08.258 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.DeleteTask (BackendAPI)'
+2026-07-14 15:08:08.270 +03:00 [INF] Route matched with {action = "DeleteTask", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DeleteTask(System.String) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:08:08.296 +03:00 [INF] Task with ID 6a54cd453334bfb193ca4855 was deleted.
+2026-07-14 15:08:08.298 +03:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-07-14 15:08:08.300 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.DeleteTask (BackendAPI) in 26.5778ms
+2026-07-14 15:08:08.301 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.DeleteTask (BackendAPI)'
+2026-07-14 15:08:08.302 +03:00 [INF] Request finished HTTP/1.1 DELETE https://localhost:7271/api/tasks/6a54cd453334bfb193ca4855 - 200 null application/json; charset=utf-8 47.1949ms
+2026-07-14 15:08:09.094 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - application/json; charset=utf-8 null
+2026-07-14 15:08:09.100 +03:00 [INF] Executing endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:08:09.103 +03:00 [INF] Route matched with {action = "GetDynamicTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDynamicTasks(System.String, InternProject.Core.DataSourceRequest) on controller BackendAPI.Controllers.TaskController (BackendAPI).
+2026-07-14 15:08:09.112 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[InternProject.Core.Properties.Tasks, InternProject.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 15:08:09.115 +03:00 [INF] Executed action BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI) in 8.4608ms
+2026-07-14 15:08:09.118 +03:00 [INF] Executed endpoint 'BackendAPI.Controllers.TaskController.GetDynamicTasks (BackendAPI)'
+2026-07-14 15:08:09.121 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:7271/api/tasks/filter-dynamic - 200 null application/json; charset=utf-8 26.918ms

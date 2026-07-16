@@ -9,6 +9,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="AssemblyInfo.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="TelerikLicense.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="BenchmarkDotNet" Version="0.15.8" />
 	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.9" />
 	  <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
@@ -22,6 +30,50 @@
 	  <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
 	  <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
 	  <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+	  <PackageReference Include="Telerik.Licensing" Version="1.8.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="Telerik.Licensing.Runtime">
+	    <HintPath>..\..\..\Telerik UI for WPF 2026 Q2\Binaries\WPF80\Telerik.Licensing.Runtime.dll</HintPath>
+	  </Reference>
+	  <Reference Include="Telerik.Windows.Controls">
+	    <HintPath>..\..\..\Telerik UI for WPF 2026 Q2\Binaries\WPF80\Telerik.Windows.Controls.dll</HintPath>
+	  </Reference>
+	  <Reference Include="Telerik.Windows.Controls.GridView">
+	    <HintPath>..\..\..\Telerik UI for WPF 2026 Q2\Binaries\WPF80\Telerik.Windows.Controls.GridView.dll</HintPath>
+	  </Reference>
+	  <Reference Include="Telerik.Windows.Controls.Input">
+	    <HintPath>..\..\..\Telerik UI for WPF 2026 Q2\Binaries\WPF80\Telerik.Windows.Controls.Input.dll</HintPath>
+	  </Reference>
+	  <Reference Include="Telerik.Windows.Data">
+	    <HintPath>..\..\..\Telerik UI for WPF 2026 Q2\Binaries\WPF80\Telerik.Windows.Data.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Remove="C:\Users\huseyin.sumer\.nuget\packages\mongodb.libmongocrypt\1.12.0\build\../runtimes/win/native/mongocrypt.dll" />
+	  <Content Remove="C:\Users\huseyin.sumer\.nuget\packages\mongodb.libmongocrypt\1.12.0\contentFiles\any\netstandard2.1\libmongocrypt.dylib" />
+	  <Content Remove="C:\Users\huseyin.sumer\.nuget\packages\mongodb.libmongocrypt\1.12.0\contentFiles\any\netstandard2.1\libmongocrypt.so" />
+	  <Content Remove="C:\Users\huseyin.sumer\.nuget\packages\mongodb.libmongocrypt\1.12.0\contentFiles\any\netstandard2.1\mongocrypt.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <DesignData Include="C:\Users\huseyin.sumer\.nuget\packages\mongodb.libmongocrypt\1.12.0\contentFiles\any\netstandard2.1\libmongocrypt.dylib" />
+	  <DesignData Include="C:\Users\huseyin.sumer\.nuget\packages\mongodb.libmongocrypt\1.12.0\contentFiles\any\netstandard2.1\libmongocrypt.so" />
+	  <DesignData Include="C:\Users\huseyin.sumer\.nuget\packages\mongodb.libmongocrypt\1.12.0\contentFiles\any\netstandard2.1\mongocrypt.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <DesignData Remove="C:\Users\huseyin.sumer\.nuget\packages\mongodb.libmongocrypt\1.12.0\build\../runtimes/win/native/mongocrypt.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AdditionalFiles Include="C:\Users\huseyin.sumer\.nuget\packages\mongodb.libmongocrypt\1.12.0\build\../runtimes/win/native/mongocrypt.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="AssemblyInfo.cs" />
 	</ItemGroup>
 
 </Project>

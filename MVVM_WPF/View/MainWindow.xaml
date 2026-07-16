@@ -1,14 +1,15 @@
 ﻿<Window x:Class="MVVM_WPF.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
         xmlns:conv="clr-namespace:MVVM_WPF.Converters" 
         Title="Intern-Project WPF Task Management" Height="750" Width="1250"
         WindowStartupLocation="CenterScreen" Background="#F0F4F8">
 
     <Window.Resources>
         <conv:BrushConverter x:Key="BrushConverter"/>
-        
-        <Style x:Key="TaskRowStyle" TargetType="ListViewItem">
+
+        <Style x:Key="TaskRowStyle" TargetType="telerik:GridViewRow">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Margin" Value="0,2"/>
             <Style.Triggers>
@@ -21,15 +22,21 @@
         </Style>
 
         <DataTemplate x:Key="StatusIndicatorTemplate">
-            <Border x:Name="Indicator" Width="8" Height="22" Background="Transparent" CornerRadius="4" HorizontalAlignment="Left"/>
-            <DataTemplate.Triggers>
-                <DataTrigger Binding="{Binding IsNew}" Value="True">
-                    <Setter TargetName="Indicator" Property="Background" Value="#000080"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding IsUpdated}" Value="True">
-                    <Setter TargetName="Indicator" Property="Background" Value="#FFD700"/>
-                </DataTrigger>
-            </DataTemplate.Triggers>
+            <Border Width="8" Height="22" CornerRadius="4" HorizontalAlignment="Left">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsNew}" Value="True">
+                                <Setter Property="Background" Value="#000080"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsUpdated}" Value="True">
+                                <Setter Property="Background" Value="#FFD700"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
         </DataTemplate>
     </Window.Resources>
 
@@ -63,7 +70,7 @@
                 </Button>
             </Grid>
 
-            <Border Grid.Row="1" Background="White" CornerRadius="8" Padding="15" Margin="0,0,0,15" 
+            <Border Grid.Row="1" Visibility=" Collapsed" Background="White" CornerRadius="8" Padding="15" Margin="0,0,0,15" 
                     BorderBrush="#E1E8ED" BorderThickness="1">
                 <Border.Effect>
                     <DropShadowEffect Color="#DDDDDD" Direction="270" ShadowDepth="2" BlurRadius="5" Opacity="0.5"/>
@@ -215,29 +222,40 @@
                     <DropShadowEffect Color="#DDDDDD" Direction="270" ShadowDepth="2" BlurRadius="5" Opacity="0.5"/>
                 </Border.Effect>
 
-                <ListView Name="TaskListView" BorderThickness="0" ItemsSource="{Binding TaskList}" 
-                          SelectedItem="{Binding UpdateTask, Mode=TwoWay}" 
-                          ItemContainerStyle="{StaticResource TaskRowStyle}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn CellTemplate="{StaticResource StatusIndicatorTemplate}" Width="25"/>
+                <telerik:RadGridView x:Name="TaskGridView" 
+                                     ItemsSource="{Binding TaskList}" 
+                                     SelectedItem="{Binding UpdateTask, Mode=TwoWay}"
+                                     RowStyle="{StaticResource TaskRowStyle}"
+                                     AutoGenerateColumns="False" 
+                                     IsFilteringAllowed="True" 
+                                     ShowGroupPanel="False"
+                                     Filtered="TaskGridView_Filtered"
+                                     BorderThickness="0"
+                                     Background="Transparent">
 
-                            <GridViewColumn Header="Task ID" DisplayMemberBinding="{Binding Id}" Width="150"/>
-                            <GridViewColumn Header="Task Name" DisplayMemberBinding="{Binding TaskName}" Width="180"/>
-                            <GridViewColumn Header="Employee" DisplayMemberBinding="{Binding EmployeeName}" Width="120"/>
-                            <GridViewColumn Header="Category" DisplayMemberBinding="{Binding CategoryText}" Width="70"/>
-                            <GridViewColumn Header="Cost" DisplayMemberBinding="{Binding EstimatedCost}" Width="70"/>
-                            <GridViewColumn Header="SP" DisplayMemberBinding="{Binding StoryPoints}" Width="40"/>
-                            <GridViewColumn Header="Sprint" DisplayMemberBinding="{Binding SprintNumber}" Width="50"/>
-                            <GridViewColumn Header="Max Time" DisplayMemberBinding="{Binding MaxTime}" Width="70"/>
-                            <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding PriorityText}" Width="60"/>
-                            <GridViewColumn Header="Active" DisplayMemberBinding="{Binding IsActive}" Width="50"/>
-                            <GridViewColumn Header="Status" DisplayMemberBinding="{Binding IsCompleted}" Width="50"/>
-                            <GridViewColumn Header="Created At" DisplayMemberBinding="{Binding CreatedAfter, StringFormat=\{0:dd.MM.yyyy\}}" Width="100"/>
-                            <GridViewColumn Header="Due Date" DisplayMemberBinding="{Binding DueDate, StringFormat=\{0:dd.MM.yyyy\}}" Width="100"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                    <telerik:RadGridView.Columns>
+                        <telerik:GridViewColumn Width="25" CellTemplate="{StaticResource StatusIndicatorTemplate}" />
+                        <telerik:GridViewDataColumn DataMemberBinding="{Binding Id}" Header="Task ID" IsFilterable="False" Width="150"/>
+                        <telerik:GridViewDataColumn DataMemberBinding="{Binding TaskName}" Header="Task Name" Width="180"/>
+                        <telerik:GridViewDataColumn DataMemberBinding="{Binding EmployeeName}" Header="Employee" Width="120"/>
+                        <telerik:GridViewDataColumn DataMemberBinding="{Binding CategoryText}" Header="Category" Width="70"/>
+                        <telerik:GridViewDataColumn DataMemberBinding="{Binding EstimatedCost}" Header="Cost" Width="70"/>
+                        <telerik:GridViewDataColumn DataMemberBinding="{Binding StoryPoints}" Header="SP" Width="40"/>
+                        <telerik:GridViewDataColumn DataMemberBinding="{Binding SprintNumber}" Header="Sprint" Width="50"/>
+                        <telerik:GridViewDataColumn DataMemberBinding="{Binding MaxTime}" Header="Max Time" Width="70"/>
+                        <telerik:GridViewDataColumn DataMemberBinding="{Binding pri}" Header="Priority" Width="60">
+                            <telerik:GridViewDataColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding PriorityText}" VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </telerik:GridViewDataColumn.CellTemplate>
+                        </telerik:GridViewDataColumn>
+                        <telerik:GridViewDataColumn DataMemberBinding="{Binding IsActive}" Header="Active" Width="50"/>
+                        <telerik:GridViewDataColumn DataMemberBinding="{Binding IsCompleted}" Header="Status" Width="50"/>
+                        <telerik:GridViewDataColumn DataMemberBinding="{Binding CreatedAfter}" Header="Created At" DataFormatString="{}{0:dd.MM.yyyy}" Width="100"/>
+                        <telerik:GridViewDataColumn DataMemberBinding="{Binding DueDate}" Header="Due Date" DataFormatString="{}{0:dd.MM.yyyy}" Width="100"/>
+                    </telerik:RadGridView.Columns>
+                </telerik:RadGridView>
             </Border>
 
             <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">

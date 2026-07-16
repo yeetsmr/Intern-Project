@@ -18,8 +18,8 @@ namespace MVVM_WPF.Model
 
     public class FilterDescriptor
     {
-        public string Member { get; set; }
-        public object Value { get; set; }
+        public string? Member { get; set; }
+        public object? Value { get; set; }
         public FilterOperator Operator { get; set; }
     }
 
@@ -47,12 +47,12 @@ namespace MVVM_WPF.Model
 
     public class SortDescriptor
     {
-        public string Member { get; set; }
-        public string SortDirection { get; set; }
+        public string? Member { get; set; }
+        public string? SortDirection { get; set; }
     }
 
     public class LoginResponse
     {
-        public string Token { get; set; }
+        public string? Token { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using ClientWPF;
-using MVVM_WPF.Model;
+﻿using MVVM_WPF.Model;
 using MVVM_WPF.MVVM;
 using MVVM_WPF.View;
 using System;
@@ -14,7 +13,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using MVVM_WPF.Converters;
 
 namespace MVVM_WPF.ViewModel
 {
@@ -180,6 +178,7 @@ namespace MVVM_WPF.ViewModel
             get => _storyPointsFilter;
             set { if (_storyPointsFilter != value) { _storyPointsFilter = value; OnPropertyChanged(); } }
         }
+
         private int? _sprintNumberFilter;
         [FilterConfig("SprintNumber", FilterOperator.IsEqualTo)]
         public int? SprintNumberFilter
@@ -272,7 +271,7 @@ namespace MVVM_WPF.ViewModel
                         if (!response.IsSuccessStatusCode)
                         {
                             var errorContent = await response.Content.ReadAsStringAsync();
-                            MessageBox.Show($"API Hata Döndürdü: {errorContent}");
+                            MessageBox.Show($"API returned error: {errorContent}");
                             return;
                         }
 
@@ -328,13 +327,16 @@ namespace MVVM_WPF.ViewModel
                         if (response.IsSuccessStatusCode)
                         {
                             MessageBox.Show("Task updated successfully!");
-                            string savedId = UpdateTask.Id; 
-                            await FetchDataAsync(); 
-
+                            string savedId = UpdateTask.Id;
+                            await FetchDataAsync();
                             var updatedItem = TaskList.FirstOrDefault(t => t.Id == savedId);
+
                             if (updatedItem != null)
                             {
+                                updatedItem.IsNew = false;
                                 updatedItem.IsUpdated = true;
+                                TaskList.Remove(updatedItem);
+                                TaskList.Insert(0, updatedItem);
                             }
                         }
                         else
@@ -460,14 +462,18 @@ namespace MVVM_WPF.ViewModel
         }
         private bool CanExecutePrevPage(object parameter) => CurrentPage > 1;
 
+        private List<FilterDescriptor> _activeGridFilters = new List<FilterDescriptor>();
+
+        public async void ApplyGridFilters(List<FilterDescriptor> gridFilters)
+        {
+            _activeGridFilters = gridFilters;
+            CurrentPage = 1;
+            await FetchDataAsync();
+        }
+
         private async Task FetchDataAsync()
         {
-            var request = new DataSourceRequest
-            {
-                PageNumber = CurrentPage,
-                PageSize = 12,
-                Filter = new CompositeFilterDescriptor { LogicalOperator = FilterCompositionLogicalOperator.And }
-            };
+            var filtersList = new List<FilterDescriptor>();
 
             var properties = this.GetType().GetProperties();
             foreach (var prop in properties)
@@ -476,31 +482,52 @@ namespace MVVM_WPF.ViewModel
                 if (attr != null)
                 {
                     var value = prop.GetValue(this);
-
                     if (value == null) continue;
                     if (value is string str && string.IsNullOrWhiteSpace(str)) continue;
                     if (value is bool b && b == false) continue;
 
-                    request.Filter.FilterDescriptors.Add(new FilterDescriptor
+                    filtersList.Add(new FilterDescriptor
                     {
                         Member = attr.Member,
-                        Value = value,
-                        Operator = attr.Operator
+                        Operator = attr.Operator,
+                        Value = value
                     });
                 }
             }
 
             if (!string.IsNullOrWhiteSpace(TaskNameFilter))
             {
-                FilterOperator op = NameOperatorIndex switch { 1 => FilterOperator.StartsWith, 2 => FilterOperator.EndsWith, _ => FilterOperator.Contains };
-                request.Filter.FilterDescriptors.Add(new FilterDescriptor { Member = "TaskName", Value = TaskNameFilter, Operator = op });
+                FilterOperator apiOp = NameOperatorIndex switch { 1 => FilterOperator.StartsWith, 2 => FilterOperator.EndsWith, _ => FilterOperator.Contains };
+                filtersList.Add(new FilterDescriptor { Member = "TaskName", Operator = apiOp, Value = TaskNameFilter });
             }
 
             if (SelectedPriorityIndex > 0)
-                request.Filter.FilterDescriptors.Add(new FilterDescriptor { Member = "pri", Value = (SelectedPriorityIndex - 1).ToString(), Operator = FilterOperator.IsEqualTo });
+            {
+                filtersList.Add(new FilterDescriptor { Member = "pri", Operator = FilterOperator.IsEqualTo, Value = SelectedPriorityIndex - 1 });
+            }
 
             if (SelectedCategoryIndex > 0)
-                request.Filter.FilterDescriptors.Add(new FilterDescriptor { Member = "Category", Value = (SelectedCategoryIndex - 1).ToString(), Operator = FilterOperator.IsEqualTo });
+            {
+                filtersList.Add(new FilterDescriptor { Member = "Category", Operator = FilterOperator.IsEqualTo, Value = SelectedCategoryIndex - 1 });
+            }
+
+            if (_activeGridFilters != null && _activeGridFilters.Count > 0)
+            {
+                filtersList.AddRange(_activeGridFilters);
+            }
+
+            var compositeFilter = new CompositeFilterDescriptor
+            {
+                LogicalOperator = FilterCompositionLogicalOperator.And, 
+                FilterDescriptors = filtersList
+            };
+
+            var requestPayload = new DataSourceRequest
+            {
+                PageNumber = CurrentPage,
+                PageSize = 12,
+                Filter = compositeFilter
+            };
 
             try
             {
@@ -509,7 +536,7 @@ namespace MVVM_WPF.ViewModel
                     if (string.IsNullOrEmpty(TokenStore.Token)) return;
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenStore.Token);
 
-                    HttpResponseMessage response = await client.PostAsJsonAsync(ApiUrl, request);
+                    HttpResponseMessage response = await client.PostAsJsonAsync(ApiUrl, requestPayload);
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -520,10 +547,10 @@ namespace MVVM_WPF.ViewModel
 
                         if (jsonText.StartsWith("{"))
                         {
-                            using (var doc = JsonDocument.Parse(jsonText))
+                            using (var doc = System.Text.Json.JsonDocument.Parse(jsonText))
                             {
-                                JsonElement root = doc.RootElement;
-                                JsonElement dataElement;
+                                System.Text.Json.JsonElement root = doc.RootElement;
+                                System.Text.Json.JsonElement dataElement;
 
                                 if (root.TryGetProperty("data", out dataElement) ||
                                     root.TryGetProperty("Data", out dataElement) ||
@@ -534,7 +561,7 @@ namespace MVVM_WPF.ViewModel
                                 }
                                 else
                                 {
-                                    MessageBox.Show($"API başarılı döndü ancak beklenen liste formatı bulunamadı. Gelen Cevap:\n\n{jsonText}", "Format Hatası", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                    System.Windows.MessageBox.Show($"API returned successfuly but format is not right. Error:\n\n{jsonText}", "Format Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
                                     return;
                                 }
                             }
@@ -551,18 +578,35 @@ namespace MVVM_WPF.ViewModel
 
                         if (fetchedTasks != null)
                         {
+                            var topItems = new List<TaskModel>();
+                            var normalItems = new List<TaskModel>();
+
                             foreach (var task in fetchedTasks)
                             {
-                                if (task.Id != null && activeNewIds.Contains(task.Id))
-                                {
-                                    task.IsNew = true;
-                                }
-
                                 if (task.Id != null && activeUpdatedIds.Contains(task.Id))
                                 {
                                     task.IsUpdated = true;
+                                    task.IsNew = false;
+                                    topItems.Add(task); 
                                 }
+                                else if (task.Id != null && activeNewIds.Contains(task.Id))
+                                {
+                                    task.IsNew = true;
+                                    topItems.Add(task);
+                                }
+                                else
+                                {
+                                    normalItems.Add(task); 
+                                }
+                            }
 
+                            foreach (var task in topItems)
+                            {
+                                TaskList.Add(task);
+                            }
+
+                            foreach (var task in normalItems)
+                            {
                                 TaskList.Add(task);
                             }
                         }
@@ -570,13 +614,13 @@ namespace MVVM_WPF.ViewModel
                     else
                     {
                         string errorText = await response.Content.ReadAsStringAsync();
-                        MessageBox.Show($"API connection error: {response.StatusCode}\n\nDetay:\n{errorText}");
+                        System.Windows.MessageBox.Show($"API connection error: {response.StatusCode}\n\nDetay:\n{errorText}");
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("API Error: " + ex.Message);
+                System.Windows.MessageBox.Show("API Error: " + ex.Message);
             }
         }
     }
