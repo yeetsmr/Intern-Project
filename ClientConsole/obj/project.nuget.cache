@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "h/ZCeb2fZy8=",
+  "dgSpecHash": "XwGI8xUqW6A=",
   "success": true,
   "projectFilePath": "C:\\Users\\huseyin.sumer\\source\\repos\\Intern-Project\\ClientConsole\\ClientConsole.csproj",
   "expectedPackageFiles": [
@@ -49,5 +49,18 @@
     "C:\\Users\\huseyin.sumer\\.nuget\\packages\\system.identitymodel.tokens.jwt\\8.0.1\\system.identitymodel.tokens.jwt.8.0.1.nupkg.sha512",
     "C:\\Users\\huseyin.sumer\\.nuget\\packages\\zstdsharp.port\\0.7.3\\zstdsharp.port.0.7.3.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Package 'Microsoft.OpenApi' 2.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-v5pm-xwqc-g5wc",
+      "projectPath": "C:\\Users\\huseyin.sumer\\source\\repos\\Intern-Project\\ClientConsole\\ClientConsole.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\huseyin.sumer\\source\\repos\\Intern-Project\\ClientConsole\\ClientConsole.csproj",
+      "libraryId": "Microsoft.OpenApi",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
 }
