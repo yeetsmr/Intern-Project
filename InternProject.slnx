@@ -1,8 +1,10 @@
 <Solution>
   <Project Path="BackendAPI/BackendAPI.csproj" />
   <Project Path="ClientConsole/ClientConsole.csproj" />
-  <Project Path="ClientWPF/ClientWPF.csproj" Id="56638ffa-9a30-4a61-9c4e-c1d4cc8efe96" />
+  <Project Path="InternProject.Benchmarks/InternProject.Benchmarks.csproj" Id="506a73c0-6f43-478d-9ff3-eb26d7f7d36c" />
   <Project Path="InternProject.Business/InternProject.Business.csproj" Id="f0ace61c-2451-4f65-974f-0a206e2bded0" />
   <Project Path="InternProject.core/InternProject.Core.csproj" Id="1a9992a3-62f6-421f-931b-02c70892cb88" />
   <Project Path="InternProject.DataAccsess/InternProject.DataAccsess.csproj" Id="b2fa1cdf-eefe-440a-807b-2c3f1812cd65" />
+  <Project Path="InternProject.Performance/InternProject.Performance.csproj" Id="f8563b3c-6468-40f4-96a1-ea06dfd929d3" />
+  <Project Path="MVVM_WPF/MVVM_WPF.csproj" />
 </Solution>

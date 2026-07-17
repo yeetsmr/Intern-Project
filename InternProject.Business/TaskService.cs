@@ -1,7 +1,6 @@
-﻿using FluentValidation; 
-using InternProject.Core;
+﻿using InternProject.Core;
+using InternProject.Core.Properties;
 using InternProject.DataAccess;
-using InternProject.Business.Validation; 
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,28 +18,27 @@ namespace InternProject.Business
             _logger = logger;
         }
 
-        public async Task<List<task>> GetFilteredTasksAsync(FilterDto filterDto)
+        public async Task<List<Tasks>> GetDynamicFilteredTasksAsync(FilterDto request)
         {
-            _logger.LogInformation("Filtering demands received");
+            return await _taskRepository.GetTasksAsync(request);
+        }
+
+        public async Task CreateTaskAsync(Tasks task)
+        {
+            await _taskRepository.CreateTaskAsync(task);
+        }
 
 
-            var validator = new FilterDtoValidator();
-            var validationResult = await validator.ValidateAsync(filterDto);
+        public async Task UpdateTaskAsync(string id, Tasks task)
+        {
+            await _taskRepository.UpdateTaskAsync(id, task);
+            _logger.LogInformation($"Task with ID {id} was updated.");
+        }
 
-            if (!validationResult.IsValid)
-            {
-
-                foreach (var failure in validationResult.Errors)
-                {
-                    _logger.LogWarning("Validation failed! Field: {Property} | Error: {Message}",
-                        failure.PropertyName, failure.ErrorMessage);
-                }
-
-
-                throw new ValidationException(validationResult.Errors);
-            }
-
-            return await _taskRepository.GetFilteredTasksAsync(filterDto);
+        public async Task DeleteTaskAsync(string id)
+        {
+            await _taskRepository.DeleteTaskAsync(id);
+            _logger.LogInformation($"Task with ID {id} was deleted.");
         }
     }
 }

@@ -8,8 +8,11 @@ namespace InternProject.DataAccess
     {
         public static IServiceCollection AddDataAccessServices(this IServiceCollection services, IConfiguration configuration)
         {
-            string mongoConnectionString = "mongodb://localhost:27017";
-            string databaseName = "secondweek";
+            string mongoConnectionString = configuration["MongoDbSettings:ConnectionString"]
+                ?? "mongodb://localhost:27017/?maxPoolSize=1000";
+
+            string databaseName = configuration["MongoDbSettings:DatabaseName"]
+                ?? "TaskData";
 
             services.AddSingleton<IMongoClient>(new MongoClient(mongoConnectionString));
 

@@ -1,17 +1,22 @@
+using InternProject.Business;
+using InternProject.DataAccess;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using InternProject.DataAccess;
-using InternProject.Business;
-using Serilog;
-using System.IO;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.IO;
+using System.Security.Claims;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-var jwtSettings = builder.Configuration.GetSection("Jwt");
-var secretKey = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
+
+var jwtSetting = builder.Configuration.GetSection("Jwt");
+string secretKey = jwtSetting["Key"] ?? throw new InvalidOperationException("JWT Key not found.");
+var keyBytes = Encoding.UTF8.GetBytes(secretKey);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
@@ -21,9 +26,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = jwtSettings["Issuer"],
-        ValidAudience = jwtSettings["Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(secretKey)
+        ValidIssuer = jwtSetting["Issuer"],
+        ValidAudience = jwtSetting["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(keyBytes)
     };
 });
 
@@ -39,7 +44,6 @@ builder.Host.UseSerilog((context, configuration) =>
 
 builder.Services.AddDataAccessServices(builder.Configuration);
 builder.Services.AddBusinessServices();
-
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
@@ -53,7 +57,22 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
+
+var testDescriptor = new SecurityTokenDescriptor
+{
+    Subject = new ClaimsIdentity(new[] {
+        new Claim(ClaimTypes.Name, "admin"),
+        new Claim(ClaimTypes.Role, "Admin")
+    }),
+    Expires = DateTime.UtcNow.AddHours(2),
+    Issuer = jwtSetting["Issuer"],
+    Audience = jwtSetting["Audience"],
+    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature)
+};
+
+var validToken = new JwtSecurityTokenHandler().WriteToken(new JwtSecurityTokenHandler().CreateToken(testDescriptor));
+Console.WriteLine("Token for the Stress Test:");
+Console.WriteLine(validToken);
 
 app.Run();

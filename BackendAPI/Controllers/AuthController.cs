@@ -1,11 +1,11 @@
 ﻿using InternProject.Business;
-using InternProject.Core;
+using InternProject.Core.Properties;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BackendAPI.Controllers
 {
     [ApiController]
-    [Route("api/auth")] 
+    [Route("api/auth")]
     public class AuthController : ControllerBase
     {
         private readonly AuthService _authService;

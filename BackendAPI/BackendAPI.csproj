@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.15.8" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
     <PackageReference Include="MongoDB.Bson" Version="3.9.0" />
@@ -25,6 +26,10 @@
     <ProjectReference Include="..\InternProject.Business\InternProject.Business.csproj" />
     <ProjectReference Include="..\InternProject.core\InternProject.Core.csproj" />
     <ProjectReference Include="..\InternProject.DataAccsess\InternProject.DataAccsess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Logs\" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,10 @@
-﻿using InternProject.Core;
-using InternProject.Business;
+﻿using InternProject.Business;
+using InternProject.Business.MappingAlgoritms;
+using InternProject.Core;
+using InternProject.Core.Properties;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 
 namespace BackendAPI.Controllers
 {
@@ -17,18 +19,59 @@ namespace BackendAPI.Controllers
         {
             _taskService = taskService;
         }
-        [HttpPost("filter")]
-        public async Task<IActionResult> GetFilteredTasks([FromBody] FilterDto filterDto)
+
+        [HttpPost("filter-dynamic")]
+        public async Task<IActionResult> GetDynamicTasks([FromQuery] string? mappingMethod, [FromBody] DataSourceRequest request)
         {
-            try
+            DetailedFilterDto DTO;
+            switch (mappingMethod?.ToLower())
             {
-                var tasks = await _taskService.GetFilteredTasksAsync(filterDto);
-                return Ok(tasks);
+                case "reflection":
+
+                    DTO = TelerikToDtoReflectionMapping.MapToDto<DetailedFilterDto>(request);
+                    break;
+
+                case "direct":
+
+                    DTO = TelerikToDtoDirectMapping.MapToDto(request);
+                    break;
+
+                case "cet":
+                default:
+                    DTO = TelerikToDtoCetMapping.MapToDto<DetailedFilterDto>(request);
+                    break;
             }
-            catch (FluentValidation.ValidationException ex)
-            {
-                return BadRequest(new { Messages = ex.Errors });
-            }
+
+            DTO.PageNumber = request.PageNumber;
+            DTO.PageSize = request.PageSize;
+
+            var tasks = await _taskService.GetDynamicFilteredTasksAsync(DTO);
+            return Ok(tasks);
+            // This is for test. For the test stage plss uncommand this line and command upper two lines.return Ok(DTO);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> CreateTask([FromBody] Tasks task)
+        {
+            await _taskService.CreateTaskAsync(task);
+            return Ok(task);
+        }
+
+        [AllowAnonymous]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateTask(string id, [FromBody] Tasks task)
+        {
+            await _taskService.UpdateTaskAsync(id, task);
+            return Ok(new { Message = "Task updated successfully." });
+        }
+
+        [AllowAnonymous]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTask(string id)
+        {
+            await _taskService.DeleteTaskAsync(id);
+            return Ok(new { Message = "Task deleted successfully." });
         }
     }
 }
