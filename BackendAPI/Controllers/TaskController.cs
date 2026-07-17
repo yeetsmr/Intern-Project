@@ -38,7 +38,7 @@ namespace BackendAPI.Controllers
 
                 case "cet":
                 default:
-                    DTO = TelerikToDtoCteMapping.MapToDto<DetailedFilterDto>(request);
+                    DTO = TelerikToDtoCetMapping.MapToDto<DetailedFilterDto>(request);
                     break;
             }
 
@@ -47,7 +47,7 @@ namespace BackendAPI.Controllers
 
             var tasks = await _taskService.GetDynamicFilteredTasksAsync(DTO);
             return Ok(tasks);
-            //return Ok(DTO);
+            // This is for test. For the test stage plss uncommand this line and command upper two lines.return Ok(DTO);
         }
 
         [AllowAnonymous]

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace InternProject.Core
+namespace InternProject.Core.Enums
 {
     public enum Priority
     {

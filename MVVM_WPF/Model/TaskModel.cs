@@ -40,7 +40,6 @@ namespace MVVM_WPF.Model
         public string? Id { get; set; }
         public string? TaskName { get; set; }
         public double? MaxTime { get; set; }
-        
         public bool? IsCompleted { get; set; }
         public DateTime? CreatedAfter { get; set; }
         public string? EmployeeName { get; set; }

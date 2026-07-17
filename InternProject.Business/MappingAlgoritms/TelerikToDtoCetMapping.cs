@@ -11,7 +11,7 @@ using System.Text.Json;
 
 namespace InternProject.Business.MappingAlgoritms
 {
-    public class TelerikToDtoCteMapping
+    public class TelerikToDtoCetMapping
     {
         public class PropertyAccessor<TDto>
         {

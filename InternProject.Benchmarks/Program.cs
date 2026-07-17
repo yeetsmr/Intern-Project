@@ -46,7 +46,7 @@ namespace InternProject.Benchmarks
         [Benchmark]
         public DetailedFilterDto CteMappingTest()
         {
-            return TelerikToDtoCteMapping.MapToDto<DetailedFilterDto>(_request);
+            return TelerikToDtoCetMapping.MapToDto<DetailedFilterDto>(_request);
         }
         [Benchmark(Baseline = true)]
         public DetailedFilterDto DirectMappingTest()
