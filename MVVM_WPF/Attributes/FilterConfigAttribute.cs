@@ -1,5 +1,4 @@
-﻿using System;
-using MVVM_WPF.Model.Enums;
+﻿using MVVM_WPF.Model.Enums;
 
 namespace MVVM_WPF.Attributes
 {

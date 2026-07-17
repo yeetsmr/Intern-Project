@@ -3,10 +3,9 @@ using BenchmarkDotNet.Running;
 using BenchmarkDotNet.Configs;
 using InternProject.Business.MappingAlgoritms;
 using InternProject.Core;
-using InternProject.Core.Filters;
 using InternProject.Core.Properties;
-using System.Collections.Generic;
-using System;
+using InternProject.Core.Model;
+using InternProject.Core.Enums;
 
 namespace InternProject.Benchmarks
 {

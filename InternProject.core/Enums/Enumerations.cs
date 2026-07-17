@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace InternProject.Core.Enums
 {
     public enum Priority
@@ -23,5 +20,24 @@ namespace InternProject.Core.Enums
         Entertainment,
         Other
     }
- 
+    public enum FilterOperator
+    {
+        IsLessThan,
+        IsLessThanOrEqualTo,
+        IsEqualTo,
+        IsNotEqualTo,
+        IsGreaterThanOrEqualTo,
+        IsGreaterThan,
+        StartsWith,
+        EndsWith,
+        Contains,
+        DoesNotContain,
+        IsContainedIn,
+        IsNotContainedIn,
+        IsNull,
+        IsNotNull,
+        IsEmpty,
+        IsNotEmpty
+    }
+
 }

@@ -1,8 +1,6 @@
 ﻿using MVVM_WPF.Model.Enums;
-using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
 namespace MVVM_WPF.Model
 {

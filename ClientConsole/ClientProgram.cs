@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Threading.Tasks;
-using static BenchmarkDotNet.Engines.EngineEventSource;
+﻿using System.Net.Http.Json;
 
 namespace ClientConsole
 {

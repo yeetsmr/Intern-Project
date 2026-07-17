@@ -2,12 +2,12 @@
 using InternProject.Core.Filters;
 using InternProject.Core.Interfaces;
 using InternProject.Core.Properties;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
+using InternProject.Core.Model;
+using InternProject.Core.Enums;
 
 namespace InternProject.Business.MappingAlgoritms
 {

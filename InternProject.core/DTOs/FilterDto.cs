@@ -1,9 +1,6 @@
 ﻿using InternProject.Core.Enums;
 using InternProject.Core.Filters;
-using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace InternProject.Core.Properties
 {

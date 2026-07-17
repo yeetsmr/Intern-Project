@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-
+﻿
 namespace MVVM_WPF.Model
 {
     public class DataSourceRequest

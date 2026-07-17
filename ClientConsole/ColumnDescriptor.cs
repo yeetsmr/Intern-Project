@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace ClientConsole
 {
     public class ColumnDescriptor

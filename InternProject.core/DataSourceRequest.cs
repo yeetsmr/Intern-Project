@@ -1,5 +1,5 @@
-﻿using InternProject.Core.Properties;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using InternProject.Core.Model;
 
 
 

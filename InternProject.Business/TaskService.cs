@@ -1,9 +1,6 @@
-﻿using InternProject.Core;
-using InternProject.Core.Properties;
+﻿using InternProject.Core.Properties;
 using InternProject.DataAccess;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace InternProject.Business
 {

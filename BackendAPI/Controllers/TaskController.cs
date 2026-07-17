@@ -4,7 +4,6 @@ using InternProject.Core;
 using InternProject.Core.Properties;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace BackendAPI.Controllers
 {

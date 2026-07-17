@@ -1,11 +1,11 @@
 ﻿using InternProject.Core;
 using InternProject.Core.Filters;
 using InternProject.Core.Interfaces;
-using InternProject.Core.Properties;
-using System;
-using System.Linq;
 using System.Reflection;
 using System.Text.Json;
+using InternProject.Core.Model;
+using InternProject.Core.Enums;
+
 
 namespace InternProject.Business.MappingAlgoritms
 {

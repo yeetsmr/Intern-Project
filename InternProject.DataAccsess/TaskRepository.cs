@@ -1,15 +1,8 @@
-﻿using BenchmarkDotNet.Filters;
-using InternProject.Core;
-using InternProject.Core.Filters;
-using InternProject.Core.Interfaces;
+﻿using InternProject.Core.Filters;
 using InternProject.Core.Properties;
-using Microsoft.AspNetCore.Mvc.Filters;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace InternProject.DataAccess
 {

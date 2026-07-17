@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using InternProject.Core.Enums;
+﻿using InternProject.Core.Enums;
 using InternProject.Core.Filters;
 namespace InternProject.Core.Properties
 

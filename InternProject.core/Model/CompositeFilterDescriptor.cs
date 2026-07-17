@@ -1,10 +1,9 @@
-﻿using MVVM_WPF.Model.Enums;
-
-namespace MVVM_WPF.Model
+﻿
+namespace InternProject.Core.Model
 {
     public class CompositeFilterDescriptor
     {
         public List<FilterDescriptor> FilterDescriptors { get; set; } = new List<FilterDescriptor>();
-        public FilterCompositionLogicalOperator LogicalOperator { get; set; }
+        public FilterCompositionLogicalOperator Operator { get; set; }
     }
 }
